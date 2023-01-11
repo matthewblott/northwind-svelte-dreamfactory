@@ -1,8 +1,9 @@
-<script>
-	// import { page } from '$app/stores'
-
-	// page.data.title = 'Home'
+<script lang="ts">
+	// import { Camera, AirVent } from 'lucide-svelte'
+	let message: string = 'Hello World!'
+	console.log(message)
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>
+	{message}
+</h1>

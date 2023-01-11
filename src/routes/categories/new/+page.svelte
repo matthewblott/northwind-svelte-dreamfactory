@@ -1,11 +1,9 @@
 <script lang="ts">
-	export let data: any
-
-	import { Save, Delete } from 'lucide-svelte'
-	import { CategorySchema } from '$lib/schema'
+	import { Save } from 'lucide-svelte'
 	import { Categories } from '$lib/rest'
+	import { CategorySchema } from '$lib/schema'
 
-	const handleUpdate = (e: any) => {
+	const handleClick = (e: any) => {
 		e.preventDefault()
 
 		const target = e.target
@@ -25,7 +23,7 @@
 		const results = CategorySchema.safeParse(jsonObject)
 
 		if (results.success) {
-			Categories.update(jsonObject)
+			Categories.create(jsonObject)
 			return
 		}
 
@@ -41,18 +39,6 @@
 			el.after(span)
 		})
 	}
-
-	const handleDelete = (e: any) => {
-		e.preventDefault()
-
-		const target = e.target
-		const form: HTMLFormElement = target.closest('form')
-		const idElement: any = form.querySelector('#CategoryId')
-		const value = idElement.value
-		const id = parseInt(value)
-
-		Categories.remove(id)
-	}
 </script>
 
 <h1>Category</h1>
@@ -60,12 +46,11 @@
 <form>
 	<fieldset>
 		<label for="CategoryId">Id</label>
-		<input id="CategoryId" name="CategoryId" value={data.CategoryId} readonly />
+		<input id="CategoryId" value="[New]" readonly />
 		<label for="CategoryName">Name</label>
-		<input id="CategoryName" name="CategoryName" value={data.CategoryName} />
+		<input id="CategoryName" name="CategoryName" />
 		<label for="Description">Description</label>
-		<input id="Description" name="Description" value={data.Description} /><br />
-		<a href="#" on:click={handleUpdate} role="button"><Save /> Save</a>
-		<a href="#" on:click={handleDelete} role="button"><Delete /> Delete </a>
+		<input id="Description" name="Description" /><br />
+		<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
 	</fieldset>
 </form>

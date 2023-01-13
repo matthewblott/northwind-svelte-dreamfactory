@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Save } from 'lucide-svelte'
-	import { Categories } from '$lib/rest'
-	import { CategorySchema } from '$lib/schema'
+	import { Category as api } from '$lib/data/category'
+	import { Category as schema } from '$lib/schema/category'
+	import { goto } from '$app/navigation'
 
-	const handleClick = (e: any) => {
+	const handleClick = async (e: any) => {
 		e.preventDefault()
 
 		const target = e.target
@@ -20,16 +21,18 @@
 
 		const formData = new FormData(form)
 		const jsonObject = Object.fromEntries(formData)
-		const results = CategorySchema.safeParse(jsonObject)
+		const results: any = schema.safeParse(jsonObject)
 
 		if (results.success) {
-			Categories.create(jsonObject)
-			return
+			const id = await api.create(jsonObject)
+			const url = `/categories/${id}`
+
+			goto(url)
 		}
 
 		const issues = results.error.issues
 
-		issues.forEach((issue) => {
+		issues.forEach((issue: any) => {
 			const el: any = form.querySelector(`#${issue.path[0]}`)
 			const span = document.createElement('span')
 

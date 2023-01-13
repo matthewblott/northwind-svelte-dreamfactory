@@ -2,7 +2,7 @@
 	/** @type {import('./$types').LayoutData} */
 	export let data
 
-	import { Regions } from '$lib/rest'
+	import { Region } from '$lib/data/region'
 
 	const item = {}
 
@@ -19,7 +19,7 @@
 	const onSave = async (e) => {
 		e.preventDefault()
 
-		await Regions.create(item)
+		await Region.create(item)
 		// await data._create(item)
 
 		// const target = e.target

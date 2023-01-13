@@ -1,12 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import { Edit, PlusSquare } from 'lucide-svelte'
 	export let data: any
-	let message: string = 'Categories'
-
-	onMount(async () => {
-		const meta = data.meta
-	})
+	let message: string = 'Shippers'
 </script>
 
 <h1>
@@ -18,18 +13,18 @@
 		<th scope="col"> Id </th>
 		<th scope="col">Name</th>
 		<th>
-			<a href="/categories/new"><PlusSquare /></a>
+			<a href="/shippers/new"><PlusSquare /></a>
 		</th>
 	</thead>
 	<tbody>
-		{#each data.resource as { CategoryId, CategoryName }}
+		{#each data.resource as { ShipperId, CompanyName }}
 			<tr>
 				<th scope="row">
-					{CategoryId}
+					{ShipperId}
 				</th>
-				<td>{CategoryName}</td>
+				<td>{CompanyName}</td>
 				<td>
-					<a href="/categories/{CategoryId}"><Edit /></a>
+					<a href="/shippers/{ShipperId}"><Edit /></a>
 				</td>
 			</tr>
 		{/each}

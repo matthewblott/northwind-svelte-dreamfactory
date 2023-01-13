@@ -2,8 +2,9 @@
 	export let data: any
 
 	import { Save, Delete } from 'lucide-svelte'
-	import { CategorySchema } from '$lib/schema'
-	import { Categories } from '$lib/rest'
+	import { Category as schema } from '$lib/schema/category'
+	import { Category as api } from '$lib/data/category'
+	import { goto } from '$app/navigation'
 
 	const handleUpdate = (e: any) => {
 		e.preventDefault()
@@ -13,7 +14,6 @@
 
 		// Clear previous errors
 		const errors = form.querySelectorAll('.error')
-
 		const fieldSet: any = form.querySelector('fieldset')
 
 		errors.forEach((error) => {
@@ -22,16 +22,16 @@
 
 		const formData = new FormData(form)
 		const jsonObject = Object.fromEntries(formData)
-		const results = CategorySchema.safeParse(jsonObject)
+		const results: any = schema.safeParse(jsonObject)
 
 		if (results.success) {
-			Categories.update(jsonObject)
-			return
+			api.update(jsonObject)
+			goto('/categories')
 		}
 
 		const issues = results.error.issues
 
-		issues.forEach((issue) => {
+		issues.forEach((issue: any) => {
 			const el: any = form.querySelector(`#${issue.path[0]}`)
 			const span = document.createElement('span')
 
@@ -51,7 +51,9 @@
 		const value = idElement.value
 		const id = parseInt(value)
 
-		Categories.remove(id)
+		api.remove(id)
+
+		goto('/categories')
 	}
 </script>
 

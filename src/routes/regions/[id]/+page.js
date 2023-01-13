@@ -1,9 +1,9 @@
-import { Regions } from '$lib/rest'
+import { Region } from '$lib/data/region'
 
 /** @type {import('./$types').PageLoad} */
 export const load = async ({ fetch, params }) => {
 	return {
 		title: 'Regions',
-		item: await Regions.fetchById(parseInt(params.id))
+		item: await Region.fetchById(parseInt(params.id))
 	}
 }

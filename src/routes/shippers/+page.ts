@@ -1,10 +1,8 @@
-import { Category as data } from '$lib/data/category'
+import { Shipper as data } from '$lib/data/shipper'
 import { error } from '@sveltejs/kit'
 
 export const load = async () => {
-	const page = 1
-
-	const items = await data.fetchPaged(page)
+	const items = await data.fetchAll()
 
 	if (items) {
 		return items

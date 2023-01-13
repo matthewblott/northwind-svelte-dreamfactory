@@ -1,5 +1,5 @@
 <script>
-	import { Regions } from '$lib/rest'
+	import { Region } from '$lib/data/region'
 	import { onMount } from 'svelte'
 
 	let promise = Promise.resolve([])
@@ -7,7 +7,7 @@
 	$: items = []
 
 	onMount(async () => {
-		promise = await Regions.fetchAll()
+		promise = await Region.fetchAll()
 		items = promise.resource
 	})
 </script>

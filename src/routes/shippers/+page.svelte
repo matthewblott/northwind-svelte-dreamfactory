@@ -1,12 +1,22 @@
 <script lang="ts">
 	import { Edit, PlusSquare } from 'lucide-svelte'
-	export let data: any
-	let message: string = 'Shippers'
+	import { onMount } from 'svelte'
+	import { store, fetchData } from './store'
+
+	$: shippers = []
+
+	onMount(() => {
+		update()
+	})
+
+	const update = async () => {
+		const data = await fetchData()
+		store.set(data)
+		shippers = data.resource
+	}
 </script>
 
-<h1>
-	{message}
-</h1>
+<h1>Shippers</h1>
 
 <table role="grid">
 	<thead>
@@ -17,12 +27,14 @@
 		</th>
 	</thead>
 	<tbody>
-		{#each data.resource as { ShipperId, CompanyName }}
+		{#each shippers as { ShipperId, CompanyName }}
 			<tr>
 				<th scope="row">
 					{ShipperId}
 				</th>
-				<td>{CompanyName}</td>
+				<td>
+					{CompanyName}
+				</td>
 				<td>
 					<a href="/shippers/{ShipperId}"><Edit /></a>
 				</td>

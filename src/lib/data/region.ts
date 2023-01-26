@@ -1,6 +1,6 @@
 import { Base } from './base.ts'
 
-export const Region = {}
+export const Region: any = {}
 
 Region.fetchAll = async () => {
 	return Base.fetchAll('regions')

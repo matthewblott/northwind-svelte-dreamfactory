@@ -1,10 +1,18 @@
 import { Base as data } from './base.ts'
-
 const table_name = 'shippers'
 export const Shipper: any = {}
 
 Shipper.fetchAll = async () => {
 	return data.fetchAll(table_name)
+}
+
+Shipper.fetchPaged = async () => {
+	const limit = 10
+	const offset = 0
+
+	const res = data.fetchPaged(table_name, limit, offset)
+
+	return res
 }
 
 Shipper.fetchById = async (id) => {
@@ -32,9 +40,11 @@ Shipper.update = async (item: schema) => {
 	const id = item.ShipperId
 	const body = JSON.stringify(item)
 
-	data.update(table_name, id, body)
+	const json = await data.update(table_name, id, body)
+
+	return json.ShipperId
 }
 
 Shipper.remove = async (id: number) => {
-	data.remove(table_name, id)
+	return await data.remove(table_name, id)
 }

@@ -19,12 +19,12 @@ Base.fetchAll = async (table_name: string) => {
 	return response.json()
 }
 
-Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
+Base.fetchDistinct = async (table_name: string, field_name: string) => {
 	const headers = new Headers({
 		'Content-Type': 'application/json'
 	})
 
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&limit=${limit}&offset=${offset}$include_count=true`
+	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&fields=${field_name}&group=${field_name}&filter=${field_name} is not null`
 	const response = await fetch(url, { headers: headers })
 
 	if (!response.ok) {
@@ -34,7 +34,22 @@ Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
 	return response.json()
 }
 
-Base.fetchById = async (table_name: string, id: number) => {
+Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
+	const headers = new Headers({
+		'Content-Type': 'application/json'
+	})
+
+	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&limit=${limit}&offset=${offset}&include_count=true`
+	const response = await fetch(url, { headers: headers })
+
+	if (!response.ok) {
+		throw new Error(response.statusText)
+	}
+
+	return response.json()
+}
+
+Base.fetchById = async (table_name: string, id: any) => {
 	const url = `${base_url}/_table/${table_name}/${id}?api_key=${api_key}`
 
 	const response = await fetch(url)

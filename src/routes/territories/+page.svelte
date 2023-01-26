@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
 	import { Edit, PlusSquare } from 'lucide-svelte'
 	import { fetchData } from './store'
-	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import Pager from '$lib/components/Pager.svelte'
 
@@ -16,7 +16,7 @@
 	const update = async (offset = 0) => {
 		const limit = 10
 		const data = await fetchData(limit, offset)
-		const url = `/customers?limit=${limit}&offset=${offset}`
+		const url = `/territories?limit=${limit}&offset=${offset}`
 
 		goto(url)
 
@@ -29,7 +29,7 @@
 	})
 </script>
 
-<h1>Customers</h1>
+<h1>Territories</h1>
 
 <Pager limit={10} {count} on:next={next} />
 
@@ -38,18 +38,18 @@
 		<th scope="col"> Id </th>
 		<th scope="col">Name</th>
 		<th>
-			<a href="/customers/new"><PlusSquare /></a>
+			<a href="/territories/new"><PlusSquare /></a>
 		</th>
 	</thead>
 	<tbody>
-		{#each items as { CustomerId, CompanyName }}
+		{#each items as { TerritoryId, TerritoryDescription }}
 			<tr>
 				<th scope="row">
-					{CustomerId}
+					{TerritoryId}
 				</th>
-				<td>{CompanyName}</td>
+				<td>{TerritoryDescription}</td>
 				<td>
-					<a href="/customers/{CustomerId}"><Edit /></a>
+					<a href="/territories/{TerritoryId}"><Edit /></a>
 				</td>
 			</tr>
 		{/each}

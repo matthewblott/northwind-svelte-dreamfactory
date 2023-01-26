@@ -8,31 +8,17 @@
 	import type { Shipper } from '$lib/schema/shipper'
 	import { goto } from '$app/navigation'
 
-	let submitted: Shipper | undefined
-
 	const { form } = createForm<Shipper>({
 		async onSubmit(values) {
-			submitted = values
-
 			delete values.ShipperId
 
-			const jsonObject = values
-
-			const id = await api.create(jsonObject)
+			const id = await api.create(values)
 			const url = `/shippers/${id}`
 			goto(url)
 		},
 		validate: validateSchema(ShipperSchema),
 		extend: [reporter]
 	})
-
-	const handleReset = (e: any) => {
-		e.preventDefault()
-		const target = e.target
-		const form: HTMLFormElement = target.closest('form')
-		const button: any = form.querySelector('button[type="reset"]')
-		button.click()
-	}
 
 	const handleClick = (e: any) => {
 		e.preventDefault()
@@ -74,12 +60,4 @@
 	<button type="submit" style="display: none;" />
 	<button type="reset" style="display: none;" />
 	<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
-	<a href="#" on:click={handleReset} role="button"><Save /> Reset</a>
 </form>
-
-{#if submitted}
-	<section>
-		<h2>Submitted values</h2>
-		<pre>{JSON.stringify(submitted, null, 2)}</pre>
-	</section>
-{/if}

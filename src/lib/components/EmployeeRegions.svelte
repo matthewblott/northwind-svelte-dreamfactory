@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Region as api } from '$lib/data/region'
+	import { Employee } from '$lib/data/employee'
 	import { onMount } from 'svelte'
 	let promise: any = Promise.resolve()
 
-	export let value: number
+	export let value: string = ''
 	export let name: string = 'Region'
 
 	let items: any = []
 
 	onMount(async () => {
-		promise = await api.fetchAll()
+		promise = await Employee.fetchRegions()
 		items = promise.resource
 	})
 </script>
@@ -20,12 +20,11 @@
 	{#if items}
 		<label for={name}>Region</label>
 		<select {name} id={name}>
-			<option value="" />
-			{#each items as { RegionId, RegionDescription }}
-				{#if RegionId === value}
-					<option value={RegionId} selected>{RegionDescription}</option>
+			{#each items as { Region }}
+				{#if Region === value}
+					<option value={Region} selected>{Region}</option>
 				{:else}
-					<option value={RegionId}>{RegionDescription}</option>
+					<option value={Region}>{Region}</option>
 				{/if}
 			{/each}
 		</select>

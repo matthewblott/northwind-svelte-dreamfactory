@@ -1,21 +1,21 @@
 import { Base as data } from './base.ts'
 
-const table_name = 'territories'
-export const Territory: any = {}
+const table_name = 'products'
+export const Product: any = {}
 
-Territory.fetchAll = async () => {
+Product.fetchAll = async () => {
 	return data.fetchAll(table_name)
 }
 
-Territory.fetchPaged = async (limit: number, offset: number) => {
+Product.fetchPaged = async (limit: number, offset: number) => {
 	return await data.fetchPaged(table_name, limit, offset)
 }
 
-Territory.fetchById = async (id) => {
+Product.fetchById = async (id) => {
 	return data.fetchById(table_name, id)
 }
 
-Territory.create = async (item: schema) => {
+Product.create = async (item: schema) => {
 	const items = []
 
 	items[0] = item
@@ -27,20 +27,24 @@ Territory.create = async (item: schema) => {
 	const body = JSON.stringify(wrapper)
 	const json = await data.create(table_name, body)
 	const resource = json.resource
-	const id = resource[0].TerritoryId
+	const id = resource[0].ProductId
 
 	return id
 }
 
-Territory.update = async (item: schema) => {
-	const id = item.TerritoryId
+Product.update = async (item: schema) => {
+	const id = item.ProductId
 	const body = JSON.stringify(item)
 
 	const json = await data.update(table_name, id, body)
 
-	return json.TerritoryId
+	return json.ProductId
 }
 
-Territory.remove = async (id: number) => {
+Product.remove = async (id: number) => {
 	return await data.remove(table_name, id)
 }
+
+// fetchSuppliers
+
+// fetchCategories

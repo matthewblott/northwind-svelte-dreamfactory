@@ -4,21 +4,21 @@
 	import { reporter } from '@felte/reporter-svelte'
 	import { validateSchema } from '@felte/validator-zod'
 	import { Save, Delete } from 'lucide-svelte'
-	import { Customer as api } from '$lib/data/customer'
-	import { CustomerSchema } from '$lib/schema/customer'
-	import type { Customer } from '$lib/schema/customer'
+	import { Supplier as api } from '$lib/data/supplier'
+	import { SupplierSchema } from '$lib/schema/supplier'
+	import type { Supplier } from '$lib/schema/supplier'
 	import { goto } from '$app/navigation'
-	import CustomerRegions from '$lib/components/CustomerRegions.svelte'
 	import Validation from '$lib/components/Validation.svelte'
+	import SupplierRegions from '$lib/components/SupplierRegions.svelte'
 
-	const { form } = createForm<Customer>({
+	const { form } = createForm<Supplier>({
 		initialValues: data,
 		async onSubmit(values) {
 			const id = await api.update(values)
-			const url = `/customers/${id}`
+			const url = `/suppliers/${id}`
 			goto(url)
 		},
-		validate: validateSchema(CustomerSchema),
+		validate: validateSchema(SupplierSchema),
 		extend: [reporter]
 	})
 
@@ -34,24 +34,27 @@
 	const handleDelete = (e: any) => {
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
-		const idElement: any = form.querySelector('#CustomerId')
+		const idElement: any = form.querySelector('#SupplierId')
 		const value = idElement.value
 		const id = parseInt(value)
 
 		api.remove(id)
 
-		goto('/customers')
+		goto('/suppliers')
 	}
 </script>
 
-<h1>Customer</h1>
+<h1>Supplier</h1>
 
 <form use:form>
+	<button type="submit" class="hidden" />
+	<button type="reset" class="hidden" />
 	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
 	<fieldset>
-		<label for="CustomerId">Id</label>
-		<input id="CustomerId" name="CustomerId" readonly />
+		<label for="SupplierId">Id</label>
+		<input id="SupplierId" name="SupplierId" readonly />
+
 		<label for="CompanyName">Name</label>
 		<input id="CompanyName" name="CompanyName" />
 		<Validation name="CompanyName" />
@@ -72,7 +75,7 @@
 		<input id="City" name="City" /><br />
 		<Validation name="City" />
 
-		<CustomerRegions value={region} />
+		<SupplierRegions value={region} />
 
 		<label for="PostalCode">Postal Code</label>
 		<input id="PostalCode" name="PostalCode" /><br />
@@ -90,6 +93,4 @@
 		<input id="Fax" name="Fax" /><br />
 		<Validation name="Fax" />
 	</fieldset>
-	<button type="submit" class="hidden" />
-	<button type="reset" class="hidden" />
 </form>

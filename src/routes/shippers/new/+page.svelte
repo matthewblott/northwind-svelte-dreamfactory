@@ -32,6 +32,9 @@
 <h1>Shipper</h1>
 
 <form use:form>
+	<button type="submit" style="display: none;" />
+	<button type="reset" style="display: none;" />
+	<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
 	<fieldset>
 		<label for="ShipperId">Id</label>
 		<input id="ShipperId" value="[New]" readonly />
@@ -57,7 +60,4 @@
 			</ul>
 		</ValidationMessage>
 	</fieldset>
-	<button type="submit" style="display: none;" />
-	<button type="reset" style="display: none;" />
-	<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
 </form>

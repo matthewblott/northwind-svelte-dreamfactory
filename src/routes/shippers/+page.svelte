@@ -2,6 +2,7 @@
 	import { Edit, PlusSquare } from 'lucide-svelte'
 	import { onMount } from 'svelte'
 	import { store, fetchData } from './store'
+	import Pager from '$lib/components/Pager.svelte'
 
 	$: shippers = []
 
@@ -17,6 +18,8 @@
 </script>
 
 <h1>Shippers</h1>
+
+<Pager />
 
 <table role="grid">
 	<thead>

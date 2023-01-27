@@ -4,21 +4,20 @@
 	import { reporter } from '@felte/reporter-svelte'
 	import { validateSchema } from '@felte/validator-zod'
 	import { Save, Delete } from 'lucide-svelte'
-	import { Territory as api } from '$lib/data/territory'
-	import { TerritorySchema } from '$lib/schema/territory'
-	import type { Territory } from '$lib/schema/territory'
+	import { Product as api } from '$lib/data/product'
+	import { ProductSchema } from '$lib/schema/product'
+	import type { Product } from '$lib/schema/product'
 	import { goto } from '$app/navigation'
-	import Regions from '$lib/components/Regions.svelte'
 	import Validation from '$lib/components/Validation.svelte'
 
-	const { form } = createForm<Territory>({
+	const { form } = createForm<Product>({
 		initialValues: data,
 		async onSubmit(values) {
 			const id = await api.update(values)
-			const url = `/territories/${id}`
+			const url = `/products/${id}`
 			goto(url)
 		},
-		validate: validateSchema(TerritorySchema),
+		validate: validateSchema(ProductSchema),
 		extend: [reporter]
 	})
 
@@ -34,17 +33,17 @@
 	const handleDelete = (e: any) => {
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
-		const idElement: any = form.querySelector('#TerritoryId')
+		const idElement: any = form.querySelector('#ProductId')
 		const value = idElement.value
 		const id = parseInt(value)
 
 		api.remove(id)
 
-		goto('/territories')
+		goto('/products')
 	}
 </script>
 
-<h1>Territory</h1>
+<h1>Product</h1>
 
 <form use:form>
 	<button type="submit" class="hidden" />
@@ -52,12 +51,10 @@
 	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
 	<fieldset>
-		<label for="TerritoryId">Id</label>
-		<input id="TerritoryId" name="TerritoryId" readonly />
-		<label for="TerritoryDescription">Description</label>
-		<input id="TerritoryDescription" name="TerritoryDescription" />
-		<Validation name="TerritoryDescription" />
-
-		<Regions value={regionId} name="RegionId" />
+		<label for="ProductId">Id</label>
+		<input id="ProductId" name="ProductId" readonly />
+		<label for="ProductDescription">Description</label>
+		<input id="ProductDescription" name="ProductName" />
+		<Validation name="ProductName" />
 	</fieldset>
 </form>

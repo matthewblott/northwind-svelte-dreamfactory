@@ -61,7 +61,7 @@ Base.fetchById = async (table_name: string, id: any) => {
 	return response.json()
 }
 
-Base.create = async (table_name: string, body: string): number => {
+Base.create = async (table_name: string, body: string) => {
 	const headers = new Headers({
 		'Content-Type': 'application/json',
 		'X-DreamFactory-API-Key': api_key

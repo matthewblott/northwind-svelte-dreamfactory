@@ -3,7 +3,8 @@
 	import { onMount } from 'svelte'
 	let promise: any = Promise.resolve()
 
-	export let region = ''
+	export let value: string = ''
+	export let name: string = 'Region'
 
 	let items: any = []
 
@@ -17,11 +18,10 @@
 	<p>Loading ...</p>
 {:then}
 	{#if items}
-		<label for="Region">Region</label>
-		<select name="Region" id="Region">
-			<option value="" />
+		<label for={name}>Region</label>
+		<select {name} id={name}>
 			{#each items as { Region }}
-				{#if Region === region}
+				{#if Region === value}
 					<option value={Region} selected>{Region}</option>
 				{:else}
 					<option value={Region}>{Region}</option>

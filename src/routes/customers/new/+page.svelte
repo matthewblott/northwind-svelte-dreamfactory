@@ -1,20 +1,18 @@
 <script lang="ts">
-	export let data: any
-	import { createForm, getValue } from 'felte'
+	import { createForm } from 'felte'
 	import { reporter } from '@felte/reporter-svelte'
 	import { validateSchema } from '@felte/validator-zod'
-	import { Save, Delete } from 'lucide-svelte'
+	import { Save } from 'lucide-svelte'
 	import { Customer as api } from '$lib/data/customer'
 	import { CustomerSchema } from '$lib/schema/customer'
 	import type { Customer } from '$lib/schema/customer'
 	import { goto } from '$app/navigation'
-	import CustomerRegions from '$lib/components/CustomerRegions.svelte'
 	import Validation from '$lib/components/Validation.svelte'
+	import CustomerRegions from '$lib/components/CustomerRegions.svelte'
 
 	const { form } = createForm<Customer>({
-		initialValues: data,
 		async onSubmit(values) {
-			const id = await api.update(values)
+			const id = await api.create(values)
 			const url = `/customers/${id}`
 			goto(url)
 		},
@@ -22,36 +20,24 @@
 		extend: [reporter]
 	})
 
-	let region = getValue(data, 'Region')
-
 	const handleClick = (e: any) => {
+		e.preventDefault()
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 		const button: any = form.querySelector('button[type="submit"]')
 		button.click()
-	}
-
-	const handleDelete = (e: any) => {
-		const target = e.target
-		const form: HTMLFormElement = target.closest('form')
-		const idElement: any = form.querySelector('#CustomerId')
-		const value = idElement.value
-		const id = parseInt(value)
-
-		api.remove(id)
-
-		goto('/customers')
 	}
 </script>
 
 <h1>Customer</h1>
 
 <form use:form>
-	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
-	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
+	<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
 	<fieldset>
 		<label for="CustomerId">Id</label>
-		<input id="CustomerId" name="CustomerId" readonly />
+		<input id="CustomerId" name="CustomerId" maxlength="5" />
+		<Validation name="CustomerId" />
+
 		<label for="CompanyName">Name</label>
 		<input id="CompanyName" name="CompanyName" />
 		<Validation name="CompanyName" />
@@ -72,7 +58,7 @@
 		<input id="City" name="City" /><br />
 		<Validation name="City" />
 
-		<CustomerRegions value={region} />
+		<CustomerRegions />
 
 		<label for="PostalCode">Postal Code</label>
 		<input id="PostalCode" name="PostalCode" /><br />

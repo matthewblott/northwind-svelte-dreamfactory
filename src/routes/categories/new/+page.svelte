@@ -5,8 +5,6 @@
 	import { goto } from '$app/navigation'
 
 	const handleClick = async (e: any) => {
-		e.preventDefault()
-
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 
@@ -47,6 +45,7 @@
 <h1>Category</h1>
 
 <form>
+	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<fieldset>
 		<label for="CategoryId">Id</label>
 		<input id="CategoryId" value="[New]" readonly />
@@ -54,6 +53,5 @@
 		<input id="CategoryName" name="CategoryName" />
 		<label for="Description">Description</label>
 		<input id="Description" name="Description" /><br />
-		<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
 	</fieldset>
 </form>

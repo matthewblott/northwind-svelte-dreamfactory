@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { Edit, PlusSquare } from 'lucide-svelte'
+	import Pager from '$lib/components/Pager.svelte'
+
 	export let data: any
 	let message: string = 'Categories'
 
@@ -12,6 +14,7 @@
 <h1>
 	{message}
 </h1>
+<Pager />
 
 <table role="grid">
 	<thead>

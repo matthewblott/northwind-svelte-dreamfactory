@@ -7,8 +7,6 @@
 	import { goto } from '$app/navigation'
 
 	const handleUpdate = (e: any) => {
-		e.preventDefault()
-
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 
@@ -43,8 +41,6 @@
 	}
 
 	const handleDelete = (e: any) => {
-		e.preventDefault()
-
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 		const idElement: any = form.querySelector('#CategoryId')
@@ -60,6 +56,8 @@
 <h1>Category</h1>
 
 <form>
+	<a href="#" on:click|preventDefault={handleUpdate} role="button"><Save /> Save</a>
+	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
 	<fieldset>
 		<label for="CategoryId">Id</label>
 		<input id="CategoryId" name="CategoryId" value={data.CategoryId} readonly />
@@ -67,7 +65,5 @@
 		<input id="CategoryName" name="CategoryName" value={data.CategoryName} />
 		<label for="Description">Description</label>
 		<input id="Description" name="Description" value={data.Description} /><br />
-		<a href="#" on:click={handleUpdate} role="button"><Save /> Save</a>
-		<a href="#" on:click={handleDelete} role="button"><Delete /> Delete </a>
 	</fieldset>
 </form>

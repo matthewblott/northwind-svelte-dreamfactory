@@ -3,12 +3,18 @@
 	import { createForm, getValue } from 'felte'
 	import { reporter } from '@felte/reporter-svelte'
 	import { validateSchema } from '@felte/validator-zod'
-	import { Save, Delete } from 'lucide-svelte'
+	import { Save, Delete, Edit } from 'lucide-svelte'
 	import { Order as api } from '$lib/data/order'
 	import { OrderSchema } from '$lib/schema/order'
 	import type { Order } from '$lib/schema/order'
 	import { goto } from '$app/navigation'
 	import DateField from '$lib/components/DateField.svelte'
+	import Customers from '$lib/components/Customers.svelte'
+	import Shippers from '$lib/components/Shippers.svelte'
+	import TextField from '$lib/components/TextField.svelte'
+	import OrderRegions from '$lib/components/OrderRegions.svelte'
+	import NumberField from '$lib/components/NumberField.svelte'
+	import Employees from '$lib/components/Employees.svelte'
 
 	const { form } = createForm<Order>({
 		initialValues: data,
@@ -21,7 +27,18 @@
 		extend: [reporter]
 	})
 
+	let orderId = getValue(data, 'OrderId')
 	let orderDate = getValue(data, 'OrderDate').substring(0, 10)
+	let requiredDate = getValue(data, 'RequiredDate').substring(0, 10)
+	let shippedDate = getValue(data, 'ShippedDate').substring(0, 10)
+	let customerId = getValue(data, 'CustomerId')
+	let shipperId = getValue(data, 'ShipVia')
+	let shipRegion = getValue(data, 'ShipRegion')
+	let employeeId = getValue(data, 'EmployeeId')
+
+	const selectDetails = () => {
+		goto(`/orders/${orderId}/items`)
+	}
 
 	const handleClick = (e: any) => {
 		const target = e.target
@@ -50,10 +67,21 @@
 	<button type="reset" class="hidden" />
 	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
+	<a href="#" on:click|preventDefault={selectDetails} role="button"><Edit /> Items</a>
 	<fieldset>
 		<label for="OrderId">Id</label>
 		<input id="OrderId" name="OrderId" readonly />
-
+		<Customers name="CustomerId" value={customerId} />
+		<Employees name="EmployeeId" value={employeeId} />
 		<DateField name="OrderDate" value={orderDate} />
+		<DateField name="RequiredDate" value={requiredDate} />
+		<DateField name="shippedDate" value={shippedDate} />
+		<Shippers name="ShipVia" value={shipperId} />
+		<NumberField name="Freight" />
+		<TextField name="ShipAddress" />
+		<TextField name="ShipCity" />
+		<OrderRegions name="ShipRegion" value={shipRegion} />
+		<TextField name="ShipPostalCode" />
+		<TextField name="ShipCountry" />
 	</fieldset>
 </form>

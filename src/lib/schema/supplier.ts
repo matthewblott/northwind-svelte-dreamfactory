@@ -7,7 +7,7 @@ const SupplierSchema = z.object({
 	ContactTitle: z.string().max(30),
 	Address: z.string().max(50),
 	City: z.string().max(15),
-	Region: z.string().max(15),
+	// Region: z.string().max(15)
 	PostalCode: z.string().max(9),
 	Country: z.string().max(15),
 	Phone: z.string().min(1).max(15),

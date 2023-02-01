@@ -1,0 +1,64 @@
+<script lang="ts">
+	import { onMount } from 'svelte'
+	import { Edit, PlusSquare } from 'lucide-svelte'
+	import { fetchData } from './store'
+	import { goto } from '$app/navigation'
+	import Pager from '$lib/components/Pager.svelte'
+	import { page } from '$app/stores'
+
+	$: items = []
+	$: count = 0
+
+	const next = (args: any) => {
+		const offset = args.detail.offset
+		update(offset)
+	}
+	const orderId = () => {
+		const pathname = $page.url.pathname
+		const id = pathname.replace('/orders/', '').replace('/items', '')
+		return id
+	}
+	const update = async (offset = 0) => {
+		const pathname = $page.url.pathname
+		const orderId = pathname.replace('/orders/', '').replace('/items', '')
+		const limit = 10
+		const data = await fetchData(limit, offset, orderId)
+		const url = `${pathname}?limit=${limit}&offset=${offset}`
+
+		goto(url)
+
+		count = data.meta.count
+		items = data.resource
+	}
+
+	onMount(() => {
+		update()
+	})
+</script>
+
+<h1>Order Items</h1>
+
+<Pager limit={10} {count} on:next={next} />
+
+<table role="grid">
+	<thead>
+		<th scope="col"> Order </th>
+		<th scope="col">Product </th>
+		<th>
+			<a href="/orders/{orderId()}/items/new"><PlusSquare /></a>
+		</th>
+	</thead>
+	<tbody>
+		{#each items as { OrderId, ProductId }}
+			<tr>
+				<th scope="row">
+					{OrderId}
+				</th>
+				<td>{ProductId}</td>
+				<td>
+					<a href="/orders/{OrderId}/items/{ProductId}"><Edit /></a>
+				</td>
+			</tr>
+		{/each}
+	</tbody>
+</table>

@@ -3,7 +3,7 @@
 	import { createForm, getValue } from 'felte'
 	import { reporter } from '@felte/reporter-svelte'
 	import { validateSchema } from '@felte/validator-zod'
-	import { Save, Delete } from 'lucide-svelte'
+	import { Save, Delete, Edit } from 'lucide-svelte'
 	import { Employee as api } from '$lib/data/employee'
 	import { EmployeeSchema } from '$lib/schema/employee'
 	import type { Employee } from '$lib/schema/employee'
@@ -12,6 +12,7 @@
 	import DateField from '$lib/components/DateField.svelte'
 	import EmployeeRegions from '$lib/components/EmployeeRegions.svelte'
 	import Employees from '$lib/components/Employees.svelte'
+	import Validation from '$lib/components/Validation.svelte'
 
 	const { form } = createForm<Employee>({
 		initialValues: data,
@@ -27,6 +28,11 @@
 	let employeeId: number = getValue(data, 'ReportsTo')
 	let hireDate = getValue(data, 'HireDate').substring(0, 10)
 	let birthDate = getValue(data, 'BirthDate').substring(0, 10)
+
+	const territories = () => {
+		const employeeId = getValue(data, 'EmployeeId')
+		goto(`/employees/${employeeId}/territories`)
+	}
 
 	const handleClick = (e: any) => {
 		const target = e.target
@@ -55,6 +61,7 @@
 	<button type="reset" class="hidden" />
 	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
+	<a href="#" on:click|preventDefault={territories} role="button"><Edit /> Territories</a>
 	<fieldset>
 		<label for="EmployeeId">Id</label>
 		<input id="EmployeeId" name="EmployeeId" readonly />
@@ -77,7 +84,10 @@
 		<TextField name="HomePhone" />
 		<TextField name="Extension" />
 		<TextField name="Photo" />
-		<TextField name="Notes" />
+
+		<label for="Notes">Notes</label>
+		<textarea name="Notes" id="Notes" rows="5" />
+		<Validation name="Notes" />
 
 		<Employees name="ReportsTo" value={employeeId} />
 

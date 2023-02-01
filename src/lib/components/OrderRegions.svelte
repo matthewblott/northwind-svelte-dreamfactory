@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Employee } from '$lib/data/employee'
+	import { Order } from '$lib/data/order'
 	import { onMount } from 'svelte'
 	import { capitalCase } from 'change-case'
 	import Validation from './Validation.svelte'
 
 	let promise: any = Promise.resolve()
 
-	export let value: number
-	export let name: string = 'ReportsTo'
+	export let value: string
+	export let name: string
 
 	let items: any = []
 
@@ -16,7 +16,7 @@
 	}
 
 	onMount(async () => {
-		promise = await Employee.fetchAll()
+		promise = await Order.fetchRegions()
 		items = promise.resource
 	})
 </script>
@@ -27,12 +27,12 @@
 	{#if items}
 		<label for={name}>{caption()}</label>
 		<select {name} id={name}>
-			<option value="" />
-			{#each items as { EmployeeId, FirstName, LastName }}
-				{#if EmployeeId === value}
-					<option value={EmployeeId} selected>{LastName}, {FirstName}</option>
+			<option />
+			{#each items as { ShipRegion }}
+				{#if ShipRegion === value}
+					<option value={ShipRegion} selected>{ShipRegion}</option>
 				{:else}
-					<option value={EmployeeId}>{LastName}, {FirstName}</option>
+					<option value={ShipRegion}>{ShipRegion}</option>
 				{/if}
 			{/each}
 		</select>

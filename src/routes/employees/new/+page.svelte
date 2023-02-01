@@ -11,6 +11,7 @@
 	import DateField from '$lib/components/DateField.svelte'
 	import EmployeeRegions from '$lib/components/EmployeeRegions.svelte'
 	import Employees from '$lib/components/Employees.svelte'
+	import Validation from '$lib/components/Validation.svelte'
 
 	const { form } = createForm<Employee>({
 		async onSubmit(values) {
@@ -45,7 +46,6 @@
 
 		<TextField name="Title" />
 		<TextField name="TitleOfCourtesy" />
-
 		<DateField name="BirthDate" />
 
 		<TextField name="FirstName" />
@@ -61,7 +61,10 @@
 		<TextField name="HomePhone" />
 		<TextField name="Extension" />
 		<TextField name="Photo" />
-		<TextField name="Notes" />
+
+		<label for="Notes">Notes</label>
+		<textarea name="Notes" id="Notes" rows="5" />
+		<Validation name="Notes" />
 
 		<Employees name="ReportsTo" />
 

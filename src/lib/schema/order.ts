@@ -2,12 +2,12 @@ import { z } from 'zod'
 
 const OrderSchema = z.object({
 	OrderId: z.number(),
-	CustomerId: z.string(),
-	EmployeeId: z.number(),
-	OrderDate: z.date(),
-	RequiredDate: z.date(),
-	ShippedDate: z.date(),
-	ShipVia: z.number(),
+	CustomerId: z.string().min(1).max(5),
+	EmployeeId: z.coerce.number().positive(),
+	OrderDate: z.coerce.date(),
+	RequiredDate: z.coerce.date(),
+	ShippedDate: z.coerce.date(),
+	ShipVia: z.coerce.number(),
 	Freight: z.number(),
 	ShipName: z.string(),
 	ShipAddress: z.string().max(50),

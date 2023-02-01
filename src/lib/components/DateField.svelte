@@ -5,15 +5,11 @@
 	export let name = ''
 	export let value = new Date().toJSON().slice(0, 10)
 
-	const caption = () => {
-		return capitalCase(name)
-	}
-
 	const fix = (e: any) => {
 		value = e.target.value || value
 	}
 </script>
 
-<label for={name}>{caption()}</label>
-<input type="date" {value} on:input={fix} />
+<label for={name}>{capitalCase(name)}</label>
+<input type="date" {name} id={name} {value} on:input={fix} />
 <Validation {name} />

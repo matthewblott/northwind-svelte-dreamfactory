@@ -8,11 +8,16 @@
 	import type { Order } from '$lib/schema/order'
 	import { goto } from '$app/navigation'
 	import DateField from '$lib/components/DateField.svelte'
+	import Customers from '$lib/components/Customers.svelte'
+	import Shippers from '$lib/components/Shippers.svelte'
+	import TextField from '$lib/components/TextField.svelte'
+	import OrderRegions from '$lib/components/OrderRegions.svelte'
+	import NumberField from '$lib/components/NumberField.svelte'
+	import Employees from '$lib/components/Employees.svelte'
 
 	const { form } = createForm<Order>({
 		async onSubmit(values) {
 			delete values.OrderId
-
 			const id = await api.create(values)
 			const url = `/orders/${id}`
 			goto(url)
@@ -22,7 +27,6 @@
 	})
 
 	const handleClick = (e: any) => {
-		e.preventDefault()
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 		const button: any = form.querySelector('button[type="submit"]')
@@ -39,7 +43,23 @@
 	<fieldset>
 		<label for="OrderId">Id</label>
 		<input id="OrderId" value="[New]" readonly />
+		<input type="number" name="OrderId" value="0" style="display: none;" />
+
+		<Customers name="CustomerId" />
+
+		<Employees name="EmployeeId" />
+		<!-- <NumberField name="EmployeeId" /> -->
 
 		<DateField name="OrderDate" />
+		<DateField name="RequiredDate" />
+		<DateField name="ShippedDate" />
+		<Shippers name="ShipVia" />
+		<NumberField name="Freight" />
+		<TextField name="ShipName" />
+		<TextField name="ShipAddress" />
+		<TextField name="ShipCity" />
+		<OrderRegions name="ShipRegion" />
+		<TextField name="ShipPostalCode" />
+		<TextField name="ShipCountry" />
 	</fieldset>
 </form>

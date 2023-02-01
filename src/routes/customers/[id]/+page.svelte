@@ -36,7 +36,7 @@
 		const form: HTMLFormElement = target.closest('form')
 		const idElement: any = form.querySelector('#CustomerId')
 		const value = idElement.value
-		const id = parseInt(value)
+		const id = value
 
 		api.remove(id)
 

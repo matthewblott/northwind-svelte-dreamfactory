@@ -7,5 +7,5 @@
 </script>
 
 <label for={name}>{capitalCase(name)}</label>
-<input id={name} {name} {value} />
+<input type="number" id={name} {name} {value} />
 <Validation {name} />

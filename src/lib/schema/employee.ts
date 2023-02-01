@@ -6,8 +6,8 @@ const EmployeeSchema = z.object({
 	FirstName: z.string(),
 	Title: z.string(),
 	TitleOfCourtesy: z.string(),
-	BirthDate: z.date(),
-	HireDate: z.date(),
+	BirthDate: z.coerce.date(),
+	HireDate: z.coerce.date(),
 	Address: z.string().max(50),
 	City: z.string().max(15),
 	Region: z.string().max(15),
@@ -17,12 +17,10 @@ const EmployeeSchema = z.object({
 	Extension: z.coerce.number(),
 	Photo: z.any(),
 	Notes: z.string(),
-	ReportsTo: z.number(),
+	ReportsTo: z.coerce.number(),
 	PhotoPath: z.string()
 })
 
 type Employee = z.infer<typeof EmployeeSchema>
 
 export { EmployeeSchema, Employee }
-
-// RegionId: z.coerce.number().positive()

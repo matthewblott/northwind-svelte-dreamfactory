@@ -23,11 +23,11 @@ Category.create = async (item: schema) => {
 
 	items[0] = item
 
-	const data = {
+	const wrapper = {
 		resource: items
 	}
 
-	const body = JSON.stringify(data)
+	const body = JSON.stringify(wrapper)
 	const json = await data.create('categories', body)
 	const resource = json.resource
 	const id = resource[0].CategoryId

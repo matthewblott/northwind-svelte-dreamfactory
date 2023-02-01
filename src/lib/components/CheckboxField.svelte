@@ -3,9 +3,13 @@
 	import { capitalCase } from 'change-case'
 
 	export let name = ''
-	export let value = ''
+	export let checked: boolean = false
 </script>
 
 <label for={name}>{capitalCase(name)}</label>
-<input id={name} {name} {value} />
+{#if checked}
+	<input type="checkbox" id={name} {name} checked />
+{:else}
+	<input type="checkbox" id={name} {name} />
+{/if}
 <Validation {name} />

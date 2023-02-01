@@ -1,22 +1,17 @@
 <script lang="ts">
-	import { Employee } from '$lib/data/employee'
+	import { Product as api } from '$lib/data/product'
 	import { onMount } from 'svelte'
-	import { capitalCase } from 'change-case'
 	import Validation from './Validation.svelte'
 
 	let promise: any = Promise.resolve()
 
 	export let value: number
-	export let name: string = 'ReportsTo'
+	export let name: string = 'Product'
 
 	let items: any = []
 
-	const caption = () => {
-		return capitalCase(name)
-	}
-
 	onMount(async () => {
-		promise = await Employee.fetchAll()
+		promise = await api.fetchAll()
 		items = promise.resource
 	})
 </script>
@@ -25,14 +20,14 @@
 	<p>Loading ...</p>
 {:then}
 	{#if items}
-		<label for={name}>{caption()}</label>
+		<label for={name}>Product</label>
 		<select {name} id={name}>
 			<option value="" />
-			{#each items as { EmployeeId, FirstName, LastName }}
-				{#if EmployeeId === value}
-					<option value={EmployeeId} selected>{LastName}, {FirstName}</option>
+			{#each items as { ProductId, ProductName }}
+				{#if ProductId === value}
+					<option value={ProductId} selected>{ProductName}</option>
 				{:else}
-					<option value={EmployeeId}>{LastName}, {FirstName}</option>
+					<option value={ProductId}>{ProductName}</option>
 				{/if}
 			{/each}
 		</select>

@@ -45,6 +45,9 @@ Order.remove = async (id: number) => {
 	return await data.remove(table_name, id)
 }
 
-// fetchCustomers
+Order.fetchRegions = async () => {
+	const fieldName = 'ShipRegion'
+	const res = await data.fetchDistinct(table_name, fieldName)
 
-// fetchEmployees
+	return res
+}

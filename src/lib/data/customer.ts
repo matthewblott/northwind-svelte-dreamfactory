@@ -41,7 +41,7 @@ Customer.update = async (item: schema) => {
 	return json.CustomerId
 }
 
-Customer.remove = async (id: number) => {
+Customer.remove = async (id: any) => {
 	return await data.remove(table_name, id)
 }
 

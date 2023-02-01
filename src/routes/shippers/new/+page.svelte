@@ -21,7 +21,6 @@
 	})
 
 	const handleClick = (e: any) => {
-		e.preventDefault()
 		const target = e.target
 		const form: HTMLFormElement = target.closest('form')
 		const button: any = form.querySelector('button[type="submit"]')
@@ -34,7 +33,7 @@
 <form use:form>
 	<button type="submit" style="display: none;" />
 	<button type="reset" style="display: none;" />
-	<a href="#" on:click={handleClick} role="button"><Save /> Save</a>
+	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
 	<fieldset>
 		<label for="ShipperId">Id</label>
 		<input id="ShipperId" value="[New]" readonly />

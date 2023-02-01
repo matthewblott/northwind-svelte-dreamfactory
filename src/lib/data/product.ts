@@ -44,7 +44,3 @@ Product.update = async (item: schema) => {
 Product.remove = async (id: number) => {
 	return await data.remove(table_name, id)
 }
-
-// fetchSuppliers
-
-// fetchCategories

@@ -6,13 +6,8 @@ Shipper.fetchAll = async () => {
 	return data.fetchAll(table_name)
 }
 
-Shipper.fetchPaged = async () => {
-	const limit = 10
-	const offset = 0
-
-	const res = data.fetchPaged(table_name, limit, offset)
-
-	return res
+Shipper.fetchPaged = async (limit: number, offset: number) => {
+	return await data.fetchPaged(table_name, limit, offset)
 }
 
 Shipper.fetchById = async (id) => {

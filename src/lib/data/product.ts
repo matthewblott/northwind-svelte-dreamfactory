@@ -33,12 +33,20 @@ Product.create = async (item: schema) => {
 }
 
 Product.update = async (item: schema) => {
+	const items = []
+
+	items[0] = item
+
+	const wrapper = {
+		resource: items
+	}
+
+	const body = JSON.stringify(wrapper)
 	const id = item.ProductId
-	const body = JSON.stringify(item)
+	const fields = 'ProductId'
+	const json = await data.updateByFields(table_name, fields, body)
 
-	const json = await data.update(table_name, id, body)
-
-	return json.ProductId
+	return id
 }
 
 Product.remove = async (id: number) => {

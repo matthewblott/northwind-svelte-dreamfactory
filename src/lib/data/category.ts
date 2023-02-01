@@ -3,19 +3,18 @@ import { Category as schema } from '$lib/schema/category'
 
 export const Category: any = {}
 
+const table_name = 'categories'
+
 Category.fetchAll = async () => {
-	return data.fetchAll('categories')
+	return data.fetchAll(table_name)
 }
 
-Category.fetchPaged = async (page: number) => {
-	const limit = 10
-	const offset = page
-
-	return data.fetchPaged('categories', limit, offset)
+Category.fetchPaged = async (limit: number, offset: number) => {
+	return await data.fetchPaged(table_name, limit, offset)
 }
 
 Category.fetchById = async (id: number) => {
-	return data.fetchById('categories', id)
+	return data.fetchById(table_name, id)
 }
 
 Category.create = async (item: schema) => {
@@ -28,7 +27,7 @@ Category.create = async (item: schema) => {
 	}
 
 	const body = JSON.stringify(wrapper)
-	const json = await data.create('categories', body)
+	const json = await data.create(table_name, body)
 	const resource = json.resource
 	const id = resource[0].CategoryId
 
@@ -39,9 +38,9 @@ Category.update = async (item: schema) => {
 	const id = item.CategoryId
 	const body = JSON.stringify(item)
 
-	data.update('categories', id, body)
+	data.update(table_name, id, body)
 }
 
 Category.remove = async (id: number) => {
-	data.remove('categories', id)
+	data.remove(table_name, id)
 }

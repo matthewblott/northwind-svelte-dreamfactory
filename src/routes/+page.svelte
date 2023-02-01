@@ -1,7 +1,5 @@
 <script lang="ts">
-	// import { Camera, AirVent } from 'lucide-svelte'
-	let message: string = 'Hello World!'
-	console.log(message)
+	let message: string = 'Northwind'
 </script>
 
 <h1>

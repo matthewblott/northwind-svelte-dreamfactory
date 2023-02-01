@@ -1,25 +1,37 @@
 <script lang="ts">
 	import { Edit, PlusSquare } from 'lucide-svelte'
 	import { onMount } from 'svelte'
-	import { store, fetchData } from './store'
+	import { fetchData } from './store'
+	import { goto } from '$app/navigation'
 	import Pager from '$lib/components/Pager.svelte'
 
-	$: shippers = []
+	$: items = []
+	$: count = 0
+
+	const next = (args: any) => {
+		const offset = args.detail.offset
+		update(offset)
+	}
+
+	const update = async (offset = 0) => {
+		const limit = 10
+		const data = await fetchData(limit, offset)
+		const url = `/shippers?limit=${limit}&offset=${offset}`
+
+		goto(url)
+
+		count = data.meta.count
+		items = data.resource
+	}
 
 	onMount(() => {
 		update()
 	})
-
-	const update = async () => {
-		const data = await fetchData()
-		store.set(data)
-		shippers = data.resource
-	}
 </script>
 
 <h1>Shippers</h1>
 
-<Pager />
+<Pager limit={10} {count} on:next={next} />
 
 <table role="grid">
 	<thead>
@@ -30,7 +42,7 @@
 		</th>
 	</thead>
 	<tbody>
-		{#each shippers as { ShipperId, CompanyName }}
+		{#each items as { ShipperId, CompanyName }}
 			<tr>
 				<th scope="row">
 					{ShipperId}

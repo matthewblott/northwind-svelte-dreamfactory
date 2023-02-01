@@ -9,18 +9,17 @@
 	$: items = []
 	$: count = 0
 
+	const pathname = $page.url.pathname
+	const paths = pathname.split('/').filter((item) => item !== '')
+	const orderId = parseInt(paths[1])
+
 	const next = (args: any) => {
 		const offset = args.detail.offset
 		update(offset)
 	}
-	const orderId = () => {
-		const pathname = $page.url.pathname
-		const id = pathname.replace('/orders/', '').replace('/items', '')
-		return id
-	}
+
 	const update = async (offset = 0) => {
 		const pathname = $page.url.pathname
-		const orderId = pathname.replace('/orders/', '').replace('/items', '')
 		const limit = 10
 		const data = await fetchData(limit, offset, orderId)
 		const url = `${pathname}?limit=${limit}&offset=${offset}`
@@ -45,7 +44,7 @@
 		<th scope="col"> Order </th>
 		<th scope="col">Product </th>
 		<th>
-			<a href="/orders/{orderId()}/items/new"><PlusSquare /></a>
+			<a href="/orders/{orderId}/items/new"><PlusSquare /></a>
 		</th>
 	</thead>
 	<tbody>

@@ -157,6 +157,9 @@ Base.updateByFields = async (table_name: string, fields: number, body: string) =
 		'X-DreamFactory-API-Key': api_key
 	})
 
+	// todo: refactor the hack below
+	body = body.replace(':true', ':1')
+
 	const url = `${base_url}/_table/${table_name}?id_field=${fields}`
 
 	const response = await fetch(url, { method: 'PUT', headers: headers, body })

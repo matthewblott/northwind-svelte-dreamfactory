@@ -12,7 +12,7 @@ EmployeeTerritory.fetchAll = async () => {
 }
 
 EmployeeTerritory.fetchFilteredPaged = async (limit: number, offset: number, filter: string) => {
-	return await data.fetchFilteredPaged(table_name, limit, offset, filter)
+	return await data.fetchFilteredPaged('EmployeeTerritoriesView', limit, offset, filter)
 }
 
 EmployeeTerritory.fetchPaged = async (limit: number, offset: number) => {

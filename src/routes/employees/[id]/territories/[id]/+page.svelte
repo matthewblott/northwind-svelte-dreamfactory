@@ -36,8 +36,8 @@
 	<a href="#" role="button" disabled><Save /> Save</a>
 	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
 	<fieldset>
-		<input name="EmployeeId" id="EmployeeId" />
-		<input id="TerritoryId" name="TerritoryId" type="hidden" />
+		<label for="TerritoryId">Territory Id</label>
+		<input id="TerritoryId" name="TerritoryId" type="number" readonly />
 		<label for="TerritoryDescription">Territory</label>
 		<input id="TerritoryDescription" name="TerritoryDescription" readonly />
 	</fieldset>

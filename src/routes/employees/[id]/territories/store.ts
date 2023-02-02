@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store'
-import type { EmployeeTerritory } from '$lib/schema/employee-territory'
-
-import { EmployeeTerritory as data } from '$lib/data/employee-territory'
 import { error } from '@sveltejs/kit'
+import { EmployeeTerritory as data } from '$lib/data/employee-territory'
+import type { EmployeeTerritoryView } from '$lib/schema/employee-territory'
 
 export let store = writable<Territory[]>([])
 

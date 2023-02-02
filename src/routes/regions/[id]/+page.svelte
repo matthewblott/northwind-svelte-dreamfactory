@@ -1,51 +1,19 @@
 <script lang="ts">
 	export let data: any
-	import { reporter } from '@felte/reporter-svelte'
 	import { createForm } from 'felte'
-	import { validateSchema } from '@felte/validator-zod'
 	import { Save, Delete } from 'lucide-svelte'
-	import { Region as api } from '$lib/data/region'
-	import { RegionSchema } from '$lib/schema/region'
-	import { goto } from '$app/navigation'
-	import type { Region } from '$lib/schema/region'
 	import Validation from '$lib/components/Validation.svelte'
 
 	const { form } = createForm<Region>({
-		initialValues: data,
-		async onSubmit(values) {
-			const id = await api.update(values)
-			const url = `/regions/${id}`
-			goto(url)
-		},
-		validate: validateSchema(RegionSchema),
-		extend: [reporter]
+		initialValues: data
 	})
-
-	const handleClick = (e: any) => {
-		const target = e.target
-		const form: HTMLFormElement = target.closest('form')
-		const button: any = form.querySelector('button[type="submit"]')
-		button.click()
-	}
-
-	const handleDelete = (e: any) => {
-		const target = e.target
-		const form: HTMLFormElement = target.closest('form')
-		const idElement: any = form.querySelector('#RegionId')
-		const value = idElement.value
-		const id = parseInt(value)
-
-		api.remove(id)
-
-		goto('/regions')
-	}
 </script>
 
 <h1>Region</h1>
 
 <form use:form>
-	<a href="#" on:click|preventDefault={handleClick} role="button"><Save /> Save</a>
-	<a href="#" on:click|preventDefault={handleDelete} role="button"><Delete /> Delete </a>
+	<a href="#" role="button" disabled><Save /> Save</a>
+	<a href="#" role="button" disabled><Delete /> Delete </a>
 	<fieldset>
 		<label for="RegionId">Id</label>
 		<input id="RegionId" type="number" name="RegionId" readonly />

@@ -41,19 +41,17 @@
 
 <table role="grid">
 	<thead>
-		<th scope="col">Employee Id </th>
 		<th scope="col">Territory Id</th>
+		<th scope="col">Territory Description</th>
 		<th>
 			<a href="/employees/{employeeId}/territories/new"><PlusSquare /></a>
 		</th>
 	</thead>
 	<tbody>
-		{#each items as { EmployeeId, TerritoryId }}
+		{#each items as { EmployeeId, TerritoryId, TerritoryDescription }}
 			<tr>
-				<th scope="row">
-					{EmployeeId}
-				</th>
-				<td>{TerritoryId}</td>
+				<td scope="row">{TerritoryId}</td>
+				<td>{TerritoryDescription}</td>
 				<td>
 					<a href="/employees/{EmployeeId}/territories/{TerritoryId}"><Edit /></a>
 				</td>

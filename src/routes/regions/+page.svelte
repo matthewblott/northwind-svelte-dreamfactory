@@ -26,7 +26,7 @@
 				<th scope="col"> Id </th>
 				<th scope="col">Description</th>
 				<th>
-					<a href="/regions/new"><PlusSquare /></a>
+					<a href="#" disabled><PlusSquare /></a>
 				</th>
 			</thead>
 			<tbody>

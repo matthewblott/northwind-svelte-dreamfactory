@@ -18,7 +18,7 @@ OrderDetails.fetchById = async (orderId: number, productId: number) => {
 }
 
 OrderDetails.fetchFilteredPaged = async (limit: number, offset: number, filter: string) => {
-	return await data.fetchFilteredPaged(table_name, limit, offset, filter)
+	return await data.fetchFilteredPaged('OrderDetailsView', limit, offset, filter)
 }
 
 OrderDetails.create = async (item: schema) => {

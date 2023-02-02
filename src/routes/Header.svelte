@@ -1,10 +1,7 @@
-<script>
-</script>
-
 <nav>
 	<ul>
 		<li><a href="/">Home</a></li>
-		<li><a href="/categories?page=1">Categories</a></li>
+		<li><a href="/categories">Categories</a></li>
 		<li><a href="/customers">Customers</a></li>
 		<li><a href="/employees">Employees</a></li>
 		<li><a href="/orders">Orders</a></li>

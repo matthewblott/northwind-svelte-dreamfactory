@@ -41,19 +41,19 @@
 
 <table role="grid">
 	<thead>
-		<th scope="col"> Order </th>
-		<th scope="col">Product </th>
+		<th scope="col">Product Id</th>
+		<th scope="col">Product Name </th>
 		<th>
 			<a href="/orders/{orderId}/items/new"><PlusSquare /></a>
 		</th>
 	</thead>
 	<tbody>
-		{#each items as { OrderId, ProductId }}
+		{#each items as { OrderId, ProductId, ProductName }}
 			<tr>
 				<th scope="row">
-					{OrderId}
+					{ProductId}
 				</th>
-				<td>{ProductId}</td>
+				<td>{ProductName}</td>
 				<td>
 					<a href="/orders/{OrderId}/items/{ProductId}"><Edit /></a>
 				</td>

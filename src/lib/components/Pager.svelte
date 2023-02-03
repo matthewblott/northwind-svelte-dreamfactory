@@ -13,13 +13,6 @@
 		return roundedCount
 	}
 
-	// const pageCount = (roundedCount, limit) => {
-	// 	 return roundedCount / limit
-	// }
-	// const pageNumber = (roundedCount, pageCount, offset) => {
-	//   return (offset / roundedCount) * pageCount + 1
-	// }
-
 	$: buttons = {
 		first: {
 			enabled: false
@@ -86,41 +79,23 @@
 	})
 </script>
 
-<nav>
-	<ul>
-		<li>
-			{#if buttons.first.enabled}
-				<a href="#" on:click|preventDefault={first}>First</a>
-			{:else}
-				<a href="#" disabled class="disabled">First</a>
-			{/if}
-		</li>
-		<li>
-			{#if buttons.previous.enabled}
-				<a href="#" on:click|preventDefault={previous}>Previous</a>
-			{:else}
-				<a href="#" disabled class="disabled">Previous</a>
-			{/if}
-		</li>
-		<li>
-			{#if buttons.next.enabled}
-				<a href="#" on:click|preventDefault={next}>Next</a>
-			{:else}
-				<a href="#" disabled class="disabled">Next</a>
-			{/if}
-		</li>
-		<li>
-			{#if buttons.last.enabled}
-				<a href="#" on:click|preventDefault={last}>Last</a>
-			{:else}
-				<a href="#" disabled class="disabled">Last</a>
-			{/if}
-		</li>
-	</ul>
-</nav>
-
-<style>
-	.disabled {
-		color: grey;
-	}
-</style>
+{#if buttons.first.enabled}
+	<button on:click|preventDefault={first}>First</button>
+{:else}
+	<button disabled>First</button>
+{/if}
+{#if buttons.previous.enabled}
+	<button on:click|preventDefault={previous}>Previous</button>
+{:else}
+	<button disabled>Previous</button>
+{/if}
+{#if buttons.next.enabled}
+	<button on:click|preventDefault={next}>Next</button>
+{:else}
+	<button disabled>Next</button>
+{/if}
+{#if buttons.last.enabled}
+	<button on:click|preventDefault={last}>Last</button>
+{:else}
+	<button disabled>Last</button>
+{/if}

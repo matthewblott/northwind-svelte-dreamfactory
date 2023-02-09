@@ -2,3 +2,30 @@ as a user
 I want to
 so I can
 who, what, why
+
+
+// baz+northwind@aleeas.com
+
+// scheme="http"
+// domain="localhost:8000"
+// email=""
+// password=""
+// api_key=""
+// session_token=""
+
+// curl -i -k -3 -X POST "${scheme}://${domamin}/api/v2/system/admin/session" \
+//  -d '{ "email" : "${email}", "password" : "${password}" }' \
+//  -H "Content-Type: application/json"
+
+// curl -i -k -3 -X POST "${scheme}://${domain}/api/v2/user/session" \
+//  -d '{ "email" : "${email}", "password" : "${password}" }' \
+//  -H "Content-Type: application/json"
+
+// curl -i -k -3 -X GET "${scheme}://${domain}/api/v2/db/_table/regions" \
+//   -H "X-DreamFactory-Api-Key: ${api_key}" \
+//   -H "X-DreamFactory-Session-Token: ${session_token}"
+
+// POST https://{url}/api/v2/system/user?send_invite=true&session_token={jwt_for_an_user_session_with_proper_role}
+
+// POST https://${domain}/api/v2/system/admin?session_token={jwt_for_an_admin_session}
+// returns session_token, session_id, host, id, name, first_name, last_name, email, last_login_date, is_sys_admin,

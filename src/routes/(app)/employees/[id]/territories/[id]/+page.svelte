@@ -39,9 +39,9 @@
 	<button on:click|preventDefault={cancel}><XSquare /> Cancel</button>
 	<div class="filler" />
 	<fieldset>
-		<label for="TerritoryId">Territory Id</label>
+		<label for="TerritoryId">Id</label>
 		<input id="TerritoryId" name="TerritoryId" type="number" readonly />
-		<label for="TerritoryDescription">Territory</label>
+		<label for="TerritoryDescription">Description</label>
 		<input id="TerritoryDescription" name="TerritoryDescription" readonly />
 	</fieldset>
 </form>

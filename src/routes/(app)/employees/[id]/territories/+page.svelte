@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { Edit, PlusSquare } from 'lucide-svelte'
+	import { Edit, PlusSquare, XSquare } from 'lucide-svelte'
 	import { fetchData } from './store'
 	import { goto } from '$app/navigation'
 	import Pager from '$lib/components/Pager.svelte'
@@ -29,7 +29,9 @@
 		count = data.meta.count
 		items = data.resource
 	}
-
+	const cancel = () => {
+		goto(`/employees/${employeeId}`)
+	}
 	onMount(() => {
 		update()
 	})
@@ -38,11 +40,11 @@
 <h1>Territories</h1>
 
 <Pager limit={10} {count} on:next={next} />
-
+<button on:click|preventDefault={cancel}><XSquare /> Cancel</button>
 <table role="grid">
 	<thead>
-		<th scope="col">Territory Id</th>
-		<th scope="col">Territory Description</th>
+		<th scope="col">Id</th>
+		<th scope="col">Description</th>
 		<th>
 			<a href="/employees/{employeeId}/territories/new"><PlusSquare /></a>
 		</th>

@@ -1,3 +1,14 @@
+<script>
+	import Login from '$lib/components/Login.svelte'
+
+	// import { sessionStore } from '$lib/stores/session'
+	// let sessionInfo = {}
+	//
+	// sessionStore.subscribe((value) => {
+	// 	sessionInfo = value
+	// })
+</script>
+
 <nav>
 	<ul>
 		<li><a href="/">Home</a></li>
@@ -11,4 +22,5 @@
 		<li><a href="/suppliers">Suppliers</a></li>
 		<li><a href="/territories">Territories</a></li>
 	</ul>
+	<Login />
 </nav>

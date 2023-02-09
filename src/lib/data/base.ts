@@ -1,67 +1,71 @@
 import { api_key } from '$lib/keys'
-
+import { sessionStore } from '$lib/stores/session.ts'
 const base_url = 'http://localhost:8000/api/v2/northwind'
-
 const Base = {}
 
-Base.fetchAll = async (table_name: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json'
+const headers = new Headers({
+	'Content-Type': 'application/json'
+})
+
+const baseAction = async (url: string, action: string, body: string) => {
+	let info
+	sessionStore.subscribe((value) => {
+		info = value
 	})
 
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}`
-	const response = await fetch(url, { headers: headers })
+	const headers = new Headers({
+		'Content-Type': 'application/json',
+		'X-DreamFactory-API-Key': api_key,
+		'X-DreamFactory-Session-Token': info.session_token
+	})
+	let response
+	if (body === undefined || body === '') {
+		response = await fetch(url, { method: action, headers: headers })
+	} else {
+		response = await fetch(url, { method: action, headers: headers, body })
+	}
 
 	if (!response.ok) {
 		throw new Error(response.statusText)
 	}
 
 	return response.json()
+}
+
+const baseFetch = async (url: string) => {
+	return baseAction(url, 'GET')
+}
+
+const baseCreate = async (url: string, body: string) => {
+	return baseAction(url, 'POST', body)
+}
+
+const baseUpdate = async (url: string, body: string) => {
+	return baseAction(url, 'PUT', body)
+}
+
+const baseRemove = async (url: string) => {
+	return baseAction(url, 'DELETE')
+}
+
+Base.fetchAll = async (table_name: string) => {
+	const url = `${base_url}/_table/${table_name}`
+	return baseFetch(url)
 }
 
 Base.fetchDistinct = async (table_name: string, field_name: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json'
-	})
-
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&fields=${field_name}&group=${field_name}&filter=${field_name} is not null`
-	const response = await fetch(url, { headers: headers })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	const url = `${base_url}/_table/${table_name}?fields=${field_name}&group=${field_name}&filter=${field_name} is not null`
+	return baseFetch(url)
 }
 
 Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json'
-	})
-
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&limit=${limit}&offset=${offset}&include_count=true`
-	const response = await fetch(url, { headers: headers })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true`
+	return baseFetch(url)
 }
 
 Base.fetchFiltered = async (table_name: string, filter: string) => {
-	const headers = new Headers({
-		'content-type': 'application/json'
-	})
-
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&filter=${filter}`
-	const response = await fetch(url, { headers: headers })
-
-	if (!response.ok) {
-		throw new error(response.statustext)
-	}
-
-	return response.json()
+	const url = `${base_url}/_table/${table_name}?filter=${filter}`
+	return baseFetch(url)
 }
 
 Base.fetchFilteredPaged = async (
@@ -70,80 +74,28 @@ Base.fetchFilteredPaged = async (
 	offset: number,
 	filter: string
 ) => {
-	const headers = new Headers({
-		'content-type': 'application/json'
-	})
-
-	const url = `${base_url}/_table/${table_name}?api_key=${api_key}&limit=${limit}&offset=${offset}&include_count=true&filter=${filter}`
-	const response = await fetch(url, { headers: headers })
-
-	if (!response.ok) {
-		throw new error(response.statustext)
-	}
-
-	return response.json()
+	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true&filter=${filter}`
+	return baseFetch(url)
 }
 
 Base.fetchById = async (table_name: string, id: any) => {
-	const url = `${base_url}/_table/${table_name}/${id}?api_key=${api_key}`
-
-	const response = await fetch(url)
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	const url = `${base_url}/_table/${table_name}/${id}`
+	return baseFetch(url)
 }
 
 Base.create = async (table_name: string, body: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	const url = `${base_url}/_table/${table_name}`
-
-	const response = await fetch(url, { method: 'POST', headers: headers, body })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseCreate(url, body)
 }
 
 Base.createByFields = async (table_name: string, fields: string, body: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	const url = `${base_url}/_table/${table_name}?id_field=${fields}`
-	const response = await fetch(url, { method: 'POST', headers: headers, body })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseCreate(url, body)
 }
 
 Base.updateById = async (table_name: string, id: number, body: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	const url = `${base_url}/_table/${table_name}/${id}`
-
-	const response = await fetch(url, { method: 'PUT', headers: headers, body })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseUpdate(url, body)
 }
 
 // obsolete, use updateById method instead
@@ -152,56 +104,19 @@ Base.update = async (table_name: string, id: number, body: string) => {
 }
 
 Base.updateByFields = async (table_name: string, fields: number, body: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	// todo: refactor the hack below
 	body = body.replace(':true', ':1')
-
 	const url = `${base_url}/_table/${table_name}?id_field=${fields}`
-
-	const response = await fetch(url, { method: 'PUT', headers: headers, body })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseUpdate(url, body)
 }
 
 Base.remove = async (table_name: string, id: any) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	const url = `${base_url}/_table/${table_name}/${id}`
-
-	const response = await fetch(url, { method: 'DELETE', headers: headers })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseRemove(url)
 }
 
 Base.removeByFilter = async (table_name: string, filter: string) => {
-	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key
-	})
-
 	const url = `${base_url}/_table/${table_name}?filter=${filter}`
-
-	const response = await fetch(url, { method: 'DELETE', headers: headers })
-
-	if (!response.ok) {
-		throw new Error(response.statusText)
-	}
-
-	return response.json()
+	return baseRemove(url)
 }
 export { Base }

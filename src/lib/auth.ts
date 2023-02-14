@@ -1,5 +1,5 @@
 import { UserSessionSchema } from '$lib/schema/user-session.ts'
-import { sessionStore } from '$lib/stores/session.ts'
+import { sessionStore, isLoggedIn } from '$lib/stores/session.ts'
 
 let UserInfo = {}
 
@@ -30,6 +30,7 @@ Auth.login = async (email: string, password: string) => {
 
 	if (parseResult.success) {
 		sessionStore.set(parseResult.data)
+		isLoggedIn.set(true)
 		return true
 	}
 
@@ -38,6 +39,7 @@ Auth.login = async (email: string, password: string) => {
 
 Auth.logout = () => {
 	sessionStore.set(null)
+	isLoggedIn.set(false)
 }
 
 export { Auth, UserInfo }

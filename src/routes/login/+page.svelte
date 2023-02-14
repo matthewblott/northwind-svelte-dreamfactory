@@ -29,8 +29,8 @@
 <form use:form>
 	<div class="filler" />
 	<fieldset>
-		<TextField name="email" value="baz+northwind@aleeas.com" />
-		<PasswordField name="password" value="password" />
+		<TextField name="email" />
+		<PasswordField name="password" />
 		<button>Submit</button>
 	</fieldset>
 </form>

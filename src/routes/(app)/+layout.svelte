@@ -1,46 +1,17 @@
 <script>
-	import '@picocss/pico/css/pico.classless.min.css'
 	import Header from './Header.svelte'
-	let title = 'Home'
+	import '@picocss/pico/css/pico.min.css'
+	import { isLoggedIn } from '$lib/stores/session'
+	import Redirect from './Redirect.svelte'
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-	<style>
-		header {
-			padding: 0 !important;
-		}
-		main {
-			padding: 0 !important;
-		}
-		h1 {
-			margin: 0 !important;
-			margin-bottom: 20px !important;
-		}
-		button {
-			display: inline !important;
-			width: fit-content !important;
-			padding-top: 5px !important;
-			padding-bottom: 5px !important;
-			padding-left: 5px !important;
-			padding-right: 5px !important;
-			padding: 13px !important;
-		}
-		label {
-			padding-left: 20px;
-		}
-		.hidden {
-			display: none;
-		}
-		.filler {
-			height: 10px;
-		}
-	</style>
-</svelte:head>
-
-<header>
-	<Header />
-</header>
-<main>
-	<slot />
-</main>
+{#if $isLoggedIn}
+	<header class="container">
+		<Header />
+	</header>
+	<main class="container">
+		<slot />
+	</main>
+{:else}
+	<Redirect />
+{/if}

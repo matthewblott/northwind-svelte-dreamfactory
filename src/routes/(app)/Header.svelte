@@ -1,12 +1,11 @@
 <script>
-	import Login from '$lib/components/Login.svelte'
+	import { goto } from '$app/navigation'
+	import { Auth } from '$lib/auth'
 
-	// import { sessionStore } from '$lib/stores/session'
-	// let sessionInfo = {}
-	//
-	// sessionStore.subscribe((value) => {
-	// 	sessionInfo = value
-	// })
+	const logout = () => {
+		Auth.logout()
+		goto('/login')
+	}
 </script>
 
 <nav>
@@ -21,6 +20,6 @@
 		<li><a href="/shippers">Shippers</a></li>
 		<li><a href="/suppliers">Suppliers</a></li>
 		<li><a href="/territories">Territories</a></li>
+		<li><a on:click|preventDefault={logout}>Logout</a></li>
 	</ul>
-	<Login />
 </nav>

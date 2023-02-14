@@ -1,6 +1,9 @@
 import { api_key } from '$lib/keys'
 import { sessionStore } from '$lib/stores/session.ts'
-const base_url = 'http://localhost:8000/api/v2/northwind'
+const scheme = 'http'
+const app_name = 'northwind_sqlite'
+const host_name = 'localhost:8000'
+const base_url = `${scheme}://${host_name}/api/v2/${app_name}`
 const Base = {}
 
 const headers = new Headers({

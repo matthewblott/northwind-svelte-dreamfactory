@@ -29,7 +29,7 @@
 <form use:form>
 	<div class="filler" />
 	<fieldset>
-		<TextField name="email" />
+		<TextField name="email" value="read_write@northwi.nd" />
 		<PasswordField name="password" />
 		<button>Submit</button>
 	</fieldset>

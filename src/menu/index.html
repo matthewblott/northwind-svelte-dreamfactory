@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+  <title>Home</title>
+  <style>
+    header {
+      place-content: end;
+      display: flex;
+      flex-direction: row;
+    }
+
+    label {
+      position: absolute;
+      padding: 0.75rem;
+      top: 0;
+      cursor: pointer;
+    }
+
+    svg {
+      fill: currentColor;
+      height: 1.5rem;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      margin-right: auto;
+      padding-top: 0.75rem;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .peer:checked~ul {
+      flex-direction: column;
+      padding-top: 0;
+      padding-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      margin-left: 0;
+    }
+
+    .peer:checked~label>svg.bars {
+      display: none;
+    }
+
+    .peer~label>svg.xmark {
+      display: none;
+    }
+
+    .peer:checked~label>svg.xmark {
+      display: inline-block;
+    }
+
+    @media (min-width: 1024px) {
+      .peer~label>svg.bars {
+        display: none;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <input class="peer" type="checkbox" id="toggle" />
+    <label for="toggle">
+      <svg class="bars" viewBox="0 0 448 512">
+        <use href="/bars.svg#x" />
+      </svg>
+      <svg class="xmark" viewBox="0 0 448 512">
+        <use href="/xmark.svg#x" />
+      </svg>
+    </label>
+
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </header>
+</body>
+
+</html>

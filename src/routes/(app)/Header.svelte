@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { Auth } from '$lib/auth'
+	import { Menu, X } from 'lucide-svelte'
 
 	const logout = () => {
 		Auth.logout()
@@ -8,6 +9,11 @@
 	}
 </script>
 
+<input class="peer" type="checkbox" id="toggle" />
+<label for="toggle">
+	<Menu />
+	<X />
+</label>
 <nav>
 	<ul>
 		<li><a href="/">Home</a></li>

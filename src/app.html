@@ -6,6 +6,50 @@
 	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 	<meta name="viewport" content="width=device-width" />
 	%sveltekit.head%
+
+	<style>
+		label[for='toggle'] {
+			position: absolute;
+			padding: 0.75rem;
+			top: 0;
+			cursor: pointer;
+		}
+
+		nav>ul {
+			display: flex;
+			flex-direction: row;
+			font-size: 1.25rem;
+			line-height: 1.75rem;
+			margin-right: auto;
+			padding-top: 0.75rem;
+		}
+
+		.peer:checked~nav>ul {
+			flex-direction: column;
+			padding-top: 0;
+			padding-bottom: 0.75rem;
+			padding-left: 1.5rem;
+			margin-left: 0;
+		}
+
+		.peer:checked~label [for='toggle']>svg.lucide-menu {
+			display: none;
+		}
+
+		.peer~label[for='toggle']>svg.lucide-x {
+			display: none;
+		}
+
+		.peer:checked~label [for='toggle']>svg.lucide-x {
+			display: inline-block;
+		}
+
+		@media (min-width: 1024px) {
+			.peer~label [for='toggle']>svg.lucide-menu {
+				display: none;
+			}
+		}
+	</style>
 </head>
 
 <body>

@@ -15,3 +15,11 @@
 {:else}
 	<Redirect />
 {/if}
+
+<style>
+	header {
+		display: flex;
+		flex-direction: row;
+		place-content: end;
+	}
+</style>

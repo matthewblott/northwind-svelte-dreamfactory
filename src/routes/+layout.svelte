@@ -1,40 +1,72 @@
 <script>
 	import '@picocss/pico/css/pico.min.css'
+	import { Menu, X } from 'lucide-svelte'
+	import Nav from '$lib/Nav.svelte'
 
-	let title = 'Home'
+	$: checked = false
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-	<style>
-		header {
-			padding: 0 !important;
-		}
-		main {
-			padding: 0 !important;
-		}
-		h1 {
-			margin: 0 !important;
-			margin-bottom: 20px !important;
-		}
-		button {
-			display: inline !important;
-			width: fit-content !important;
-			padding-top: 5px !important;
-			padding-bottom: 5px !important;
-			padding-left: 5px !important;
-			padding-right: 5px !important;
-			padding: 13px !important;
-		}
-		label {
-			padding-left: 20px;
-		}
-		.hidden {
+<header>
+	<input class="peer" type="checkbox" id="toggle" bind:checked />
+	<label for="toggle">
+		<span class="menu">
+			<Menu />
+		</span>
+		<span class="x">
+			<X />
+		</span>
+	</label>
+	<nav>
+		<Nav {checked} />
+	</nav>
+</header>
+<main>
+	<slot />
+</main>
+
+<style>
+	header {
+		display: flex;
+		flex-direction: row;
+		place-content: end;
+	}
+
+	nav {
+		margin-right: auto;
+	}
+
+	label {
+		position: absolute;
+		padding: 0.75rem;
+		top: 0;
+		cursor: pointer;
+	}
+
+	.peer ~ label > .x {
+		display: none;
+	}
+
+	.peer:checked ~ label > .menu {
+		display: none;
+	}
+	.peer:checked ~ label > .menu {
+		display: none;
+	}
+
+	.peer:checked ~ label > .x {
+		display: inline-block;
+	}
+
+	@media (min-width: 1024px) {
+		.peer ~ label > .menu {
 			display: none;
 		}
-		.filler {
-			height: 10px;
+		.peer ~ label > .menu {
+			display: none;
 		}
-	</style>
-</svelte:head>
-<slot />
+	}
+
+	.peer {
+		display: none;
+	}
+</style>

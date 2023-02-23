@@ -1,12 +1,12 @@
 import { UserSessionSchema } from '$lib/schema/user-session.ts'
 import { sessionStore, isLoggedIn } from '$lib/stores/session.ts'
+import { getHost } from '$lib/utils.ts'
 
 let UserInfo = {}
 
 const Auth = {}
-// let domain = '10.0.2.2'
-let domain = 'localhost'
-const base_url = `http://${domain}:8000/api/v2`
+const scheme = 'http'
+const base_url = `${scheme}://${getHost()}/api/v2`
 
 Auth.login = async (email: string, password: string) => {
 	const headers = new Headers({

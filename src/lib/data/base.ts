@@ -1,10 +1,9 @@
-import { api_key } from '$lib/keys'
+import { PUBLIC_API_KEY, PUBLIC_APP_NAME } from '$env/static/public'
+
 import { sessionStore } from '$lib/stores/session.ts'
+import { getHost } from '$lib/utils.ts'
 const scheme = 'http'
-const app_name = 'northwind_sqlite'
-// const host_name = '10.0.2.2:8000'
-const host_name = 'localhost:8000'
-const base_url = `${scheme}://${host_name}/api/v2/${app_name}`
+const base_url = `${scheme}://${getHost()}/api/v2/${PUBLIC_APP_NAME}`
 const Base = {}
 
 const headers = new Headers({
@@ -19,7 +18,7 @@ const baseAction = async (url: string, action: string, body: string) => {
 
 	const headers = new Headers({
 		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': api_key,
+		'X-DreamFactory-API-Key': PUBLIC_API_KEY,
 		'X-DreamFactory-Session-Token': info.session_token
 	})
 	let response

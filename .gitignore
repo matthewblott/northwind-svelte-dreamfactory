@@ -7,11 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node
 node_modules
 dist
 dist-ssr
 *.local
 pnpm-lock.yaml
+package-lock.json
 
 # Editor directories and files
 .vscode/*
@@ -24,7 +26,6 @@ pnpm-lock.yaml
 *.sln
 *.sw?
 
-package-lock.json
 
 # Capacitor
 android
@@ -33,3 +34,6 @@ ios
 # Data
 data/
 !src/lib/data
+
+# Environment variables
+.env

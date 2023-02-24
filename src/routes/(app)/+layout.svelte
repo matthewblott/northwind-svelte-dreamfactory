@@ -22,11 +22,12 @@
 				<X />
 			</span>
 		</label>
-		<nav>
+		<nav class="container">
 			<Nav {checked} on:changed={navChanged} />
+			<!-- <Nav {checked} /> -->
 		</nav>
 	</header>
-	<main>
+	<main class="container">
 		{#if !checked}
 			<slot />
 		{/if}
@@ -49,7 +50,6 @@
 	label {
 		position: absolute;
 		padding: 0.75rem;
-		top: 100px;
 		cursor: pointer;
 	}
 

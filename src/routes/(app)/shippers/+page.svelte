@@ -1,59 +1,55 @@
 <script lang="ts">
 	import { Edit, PlusSquare } from 'lucide-svelte'
-	import { onMount } from 'svelte'
-	import { fetchData } from './store'
 	import { goto } from '$app/navigation'
+	import { fetchData } from './store'
+	import type { PageData } from './$types'
 	import Pager from '$lib/components/Pager.svelte'
 
-	$: items = []
-	$: count = 0
+	export let data: PageData
 
-	const next = (args: any) => {
+	$: promise = data
+	$: count = promise.meta.count
+
+	const next = async (args: any) => {
 		const offset = args.detail.offset
-		update(offset)
-	}
-
-	const update = async (offset = 0) => {
 		const limit = 10
-		const data = await fetchData(limit, offset)
-		const url = `/shippers?limit=${limit}&offset=${offset}`
+		const url = `?limit=${limit}&offset=${offset}`
 
 		goto(url)
 
-		count = data.meta.count
-		items = data.resource
+		promise = await fetchData(limit, offset)
+		count = promise.meta.count
 	}
-
-	onMount(() => {
-		update()
-	})
 </script>
 
 <h1>Shippers</h1>
-
 <Pager limit={10} {count} on:next={next} />
 
-<table role="grid">
-	<thead>
-		<th scope="col"> Id </th>
-		<th scope="col">Name</th>
-		<th>
-			<a href="/shippers/new"><PlusSquare /></a>
-		</th>
-	</thead>
-	<tbody>
-		{#each items as { ShipperId, CompanyName }}
-			<tr>
-				<th scope="row">
-					{ShipperId}
-				</th>
-				<td>
-					{CompanyName}
-				</td>
-				<td>
-					<a href="/shippers/{ShipperId}"><Edit /></a>
-				</td>
-			</tr>
-		{/each}
-	</tbody>
-</table>
+{#await promise}
+	<p>waiting for the promise to resolve...</p>
+{:then value}
+	<table role="grid">
+		<thead>
+			<th scope="col"> Id </th>
+			<th scope="col">Name</th>
+			<th>
+				<a href="/shippers/new"><PlusSquare /></a>
+			</th>
+		</thead>
+		<tbody>
+			{#each value.resource as { ShipperId, CompanyName }}
+				<tr>
+					<td scope="row">
+						{ShipperId}
+					</td>
+					<td>{CompanyName}</td>
+					<td>
+						<a href="/shippers/{ShipperId}"><Edit /></a>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{:catch error}
+	{error}
+{/await}

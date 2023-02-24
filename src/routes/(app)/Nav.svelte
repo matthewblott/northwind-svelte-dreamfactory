@@ -2,8 +2,6 @@
 	import Logout from '$lib/components/Logout.svelte'
 	export let checked = false
 	import { createEventDispatcher } from 'svelte'
-	// import { Capacitor } from '@capacitor/core'
-	// const platform = Capacitor.getPlatform()
 	const dispatch = createEventDispatcher()
 
 	const change = (e: Event) => {
@@ -14,7 +12,7 @@
 </script>
 
 <ul class={checked ? 'display' : ''} on:click={change}>
-	<li><a href="/">Home</a></li>
+	<li><a href="/home">Home</a></li>
 	<li><a href="/categories">Categories</a></li>
 	<li><a href="/customers">Customers</a></li>
 	<li><a href="/employees">Employees</a></li>

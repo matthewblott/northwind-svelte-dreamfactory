@@ -1,57 +1,55 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import { Edit, PlusSquare } from 'lucide-svelte'
-	import { fetchData } from './store'
 	import { goto } from '$app/navigation'
+	import { fetchData } from './store'
+	import type { PageData } from './$types'
 	import Pager from '$lib/components/Pager.svelte'
 
-	$: items = []
-	$: count = 0
+	export let data: PageData
 
-	const next = (args: any) => {
+	$: promise = data
+	$: count = promise.meta.count
+
+	const next = async (args: any) => {
 		const offset = args.detail.offset
-		update(offset)
-	}
-
-	const update = async (offset = 0) => {
 		const limit = 10
-		const data = await fetchData(limit, offset)
-		const url = `/employees?limit=${limit}&offset=${offset}`
+		const url = `?limit=${limit}&offset=${offset}`
 
 		goto(url)
 
-		count = data.meta.count
-		items = data.resource
+		promise = await fetchData(limit, offset)
+		count = promise.meta.count
 	}
-
-	onMount(() => {
-		update()
-	})
 </script>
 
 <h1>Employees</h1>
-
 <Pager limit={10} {count} on:next={next} />
 
-<table role="grid">
-	<thead>
-		<th scope="col"> Id </th>
-		<th scope="col">Name</th>
-		<th>
-			<a href="/employees/new"><PlusSquare /></a>
-		</th>
-	</thead>
-	<tbody>
-		{#each items as { EmployeeId, FirstName, LastName }}
-			<tr>
-				<th scope="row">
-					{EmployeeId}
-				</th>
-				<td>{FirstName} {LastName}</td>
-				<td>
-					<a href="/employees/{EmployeeId}"><Edit /></a>
-				</td>
-			</tr>
-		{/each}
-	</tbody>
-</table>
+{#await promise}
+	<p>waiting for the promise to resolve...</p>
+{:then value}
+	<table role="grid">
+		<thead>
+			<th scope="col"> Id </th>
+			<th scope="col">Name</th>
+			<th>
+				<a href="/employees/new"><PlusSquare /></a>
+			</th>
+		</thead>
+		<tbody>
+			{#each value.resource as { EmployeeId, FirstName, LastName }}
+				<tr>
+					<td scope="row">
+						{EmployeeId}
+					</td>
+					<td>{FirstName} {LastName}</td>
+					<td>
+						<a href="/employees/{EmployeeId}"><Edit /></a>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+{:catch error}
+	{error}
+{/await}

@@ -65,6 +65,8 @@ Base.fetchDistinct = async (table_name: string, field_name: string) => {
 
 Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
   
+  //
+  
   if(offset === 0)
   {
     offset++

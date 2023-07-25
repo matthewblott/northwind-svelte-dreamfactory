@@ -44,8 +44,8 @@
 		dispatch('next', {
 			offset: offset
 		})
-		buttons.first.enabled = offset > 0
-		buttons.previous.enabled = offset > 0
+		buttons.first.enabled = offset > 1
+		buttons.previous.enabled = offset > 1
 		buttons.next.enabled = true
 		buttons.last.enabled = true
 	}

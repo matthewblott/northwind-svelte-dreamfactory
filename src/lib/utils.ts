@@ -18,7 +18,7 @@ const getHost = () => {
 		domain = PUBLIC_HOST_IP
 	}
 
-	const port = 8000
+	const port = 5000
 	const host = `${domain}:${port}`
 
 	return host

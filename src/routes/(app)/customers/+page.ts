@@ -4,8 +4,8 @@ import { error } from '@sveltejs/kit'
 import type { PageLoad } from './$types'
 
 export const load: PageLoad = (async ({ params }) => {
-	const limit = 10
-	const offset = 0
+	const limit = 1
+	const offset = 1
 	const items = await data.fetchPaged(limit, offset)
 
 	if (items) {

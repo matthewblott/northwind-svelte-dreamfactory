@@ -29,7 +29,7 @@
 	}
 
 	const first = () => {
-		offset = 0
+		offset = 1
 		dispatch('next', {
 			offset: offset
 		})
@@ -40,7 +40,7 @@
 	}
 
 	const previous = () => {
-		offset = offset - limit
+		offset = offset - 1
 		dispatch('next', {
 			offset: offset
 		})
@@ -51,7 +51,7 @@
 	}
 
 	const next = () => {
-		offset = offset + limit
+		offset = offset + 1
 		dispatch('next', {
 			offset: offset
 		})
@@ -74,7 +74,7 @@
 	}
 
 	onMount(() => {
-		offset = 0
+		offset = 1
 		console.log(count)
 	})
 </script>

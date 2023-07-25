@@ -11,30 +11,29 @@
 	}
 </script>
 
+<header>
+	<input class="peer" type="checkbox" id="toggle" bind:checked />
+	<label for="toggle">
+		<span class="menu">
+			<M />
+		</span>
+		<span class="x">
+			<X />
+		</span>
+	</label>
+	<nav class="container">
+		<Nav {checked} on:changed={navChanged} />
+		<!-- <Nav {checked} /> -->
+	</nav>
+</header>
+<main class="container">
+	{#if !checked}
+		<slot />
+	{/if}
+</main>
 {#if $isLoggedIn}
-	<header>
-		<input class="peer" type="checkbox" id="toggle" bind:checked />
-		<label for="toggle">
-			<span class="menu">
-				<M />
-			</span>
-			<span class="x">
-				<X />
-			</span>
-		</label>
-		<nav class="container">
-			<Nav {checked} on:changed={navChanged} />
-			<!-- <Nav {checked} /> -->
-		</nav>
-	</header>
-	<main class="container">
-		{#if !checked}
-			<slot />
-		{/if}
-	</main>
-{:else}
 	<Redirect />
-{/if}
+{:else}{/if}
 
 <style>
 	header {

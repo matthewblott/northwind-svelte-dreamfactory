@@ -3,7 +3,8 @@ import { PUBLIC_API_KEY, PUBLIC_APP_NAME } from '$env/static/public'
 import { sessionStore } from '$lib/stores/session.ts'
 import { getHost } from '$lib/utils.ts'
 const scheme = 'http'
-const base_url = `${scheme}://${getHost()}/api/v2/${PUBLIC_APP_NAME}`
+// const base_url = `${scheme}://${getHost()}/api/v2/${PUBLIC_APP_NAME}`
+const base_url = `${scheme}://${getHost()}/api`
 const Base = {}
 
 const headers = new Headers({
@@ -17,9 +18,9 @@ const baseAction = async (url: string, action: string, body: string) => {
 	})
 
 	const headers = new Headers({
-		'Content-Type': 'application/json',
-		'X-DreamFactory-API-Key': PUBLIC_API_KEY,
-		'X-DreamFactory-Session-Token': info.session_token
+		// 'Content-Type': 'application/json',
+		// 'X-DreamFactory-API-Key': PUBLIC_API_KEY,
+		// 'X-DreamFactory-Session-Token': info.session_token
 	})
 	let response
 	if (body === undefined || body === '') {
@@ -62,7 +63,9 @@ Base.fetchDistinct = async (table_name: string, field_name: string) => {
 }
 
 Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
-	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true`
+  let pageNumber = (offset / limit) + 1
+	// const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true`
+	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true&page[number]=${pageNumber}`
 	return baseFetch(url)
 }
 

@@ -1,0 +1,76 @@
+{
+	"/(app)": [],
+	"/": [],
+	"/(app)/categories": [
+		"src/routes/(app)/categories/+page.ts"
+	],
+	"/(app)/categories/new": [],
+	"/(app)/categories/[id]": [
+		"src/routes/(app)/categories/[id]/+page.ts"
+	],
+	"/(app)/customers": [
+		"src/routes/(app)/customers/+page.ts"
+	],
+	"/(app)/customers/new": [],
+	"/(app)/customers/[id]": [
+		"src/routes/(app)/customers/[id]/+page.ts"
+	],
+	"/(app)/employees": [
+		"src/routes/(app)/employees/+page.ts"
+	],
+	"/(app)/employees/new": [],
+	"/(app)/employees/[id]": [
+		"src/routes/(app)/employees/[id]/+page.ts"
+	],
+	"/(app)/employees/[id]/territories": [],
+	"/(app)/employees/[id]/territories/new": [],
+	"/(app)/employees/[id]/territories/[id]": [
+		"src/routes/(app)/employees/[id]/territories/[id]/+page.ts"
+	],
+	"/(app)/home": [],
+	"/login": [],
+	"/(app)/orders": [
+		"src/routes/(app)/orders/+page.ts"
+	],
+	"/(app)/orders/new": [],
+	"/(app)/orders/[id]": [
+		"src/routes/(app)/orders/[id]/+page.ts"
+	],
+	"/(app)/orders/[id]/items": [],
+	"/(app)/orders/[id]/items/new": [],
+	"/(app)/orders/[id]/items/[id]": [
+		"src/routes/(app)/orders/[id]/items/[id]/+page.ts"
+	],
+	"/(app)/products": [
+		"src/routes/(app)/products/+page.ts"
+	],
+	"/(app)/products/new": [],
+	"/(app)/products/[id]": [
+		"src/routes/(app)/products/[id]/+page.ts"
+	],
+	"/(app)/regions": [],
+	"/(app)/regions/[id]": [
+		"src/routes/(app)/regions/[id]/+page.ts"
+	],
+	"/(app)/shippers": [
+		"src/routes/(app)/shippers/+page.ts"
+	],
+	"/(app)/shippers/new": [],
+	"/(app)/shippers/[id]": [
+		"src/routes/(app)/shippers/[id]/+page.ts"
+	],
+	"/(app)/suppliers": [
+		"src/routes/(app)/suppliers/+page.ts"
+	],
+	"/(app)/suppliers/new": [],
+	"/(app)/suppliers/[id]": [
+		"src/routes/(app)/suppliers/[id]/+page.ts"
+	],
+	"/(app)/territories": [
+		"src/routes/(app)/territories/+page.ts"
+	],
+	"/(app)/territories/new": [],
+	"/(app)/territories/[id]": [
+		"src/routes/(app)/territories/[id]/+page.ts"
+	]
+}

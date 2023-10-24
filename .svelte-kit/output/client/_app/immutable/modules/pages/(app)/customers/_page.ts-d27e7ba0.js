@@ -1,0 +1,1 @@
+import"../../../../chunks/index-867ab049.js";import"../../../../chunks/customer-74249bcf.js";import"../../../../chunks/index-4d8f42c1.js";import{l as i}from"../../../../chunks/_page-7bb16baf.js";export{i as load};

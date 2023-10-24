@@ -35,8 +35,21 @@ Category.create = async (item: schema) => {
 }
 
 Category.update = async (item: schema) => {
+	
+  let apiObj = {
+    "data": {
+      "type": table_name,
+      "id": item.CategoryId,
+      "attributes": {
+        "CategoryName": item.CategoryName,
+        "Description": item.Description
+      }
+    }
+  }
+
 	const id = item.CategoryId
-	const body = JSON.stringify(item)
+	// const body = JSON.stringify(item)
+	const body = JSON.stringify(apiObj)
 
 	data.update(table_name, id, body)
 }

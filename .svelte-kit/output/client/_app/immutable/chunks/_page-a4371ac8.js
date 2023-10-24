@@ -1,0 +1,1 @@
+import"./index-867ab049.js";import{S as o}from"./shipper-5b33cd97.js";import{e}from"./index-4d8f42c1.js";const r=async({params:a})=>{const t=await o.fetchPaged(10,0);if(t)return t;throw e(404,"Not found")},p=Object.freeze(Object.defineProperty({__proto__:null,load:r},Symbol.toStringTag,{value:"Module"}));export{p as _,r as l};

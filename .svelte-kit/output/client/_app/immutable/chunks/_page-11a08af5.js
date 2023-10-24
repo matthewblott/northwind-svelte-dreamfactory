@@ -1,0 +1,1 @@
+import{O as r}from"./order-9f69369a.js";import{e as t}from"./index-4d8f42c1.js";const a=async({params:e})=>{const o=await r.fetchById(e.id);if(o)return o;throw t(404,"Not found")},s=Object.freeze(Object.defineProperty({__proto__:null,load:a},Symbol.toStringTag,{value:"Module"}));export{s as _,a as l};

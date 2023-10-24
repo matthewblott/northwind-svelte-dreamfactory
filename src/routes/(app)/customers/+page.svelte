@@ -8,7 +8,7 @@
 	export let data: PageData
 
 	$: promise = data
-	$: count = promise.meta.count
+	$: count = promise.meta.total
 
 	const next = async (args: any) => {
 		const offset = args.detail.offset
@@ -38,14 +38,14 @@
 			</th>
 		</thead>
 		<tbody>
-			{#each value.resource as { CustomerId, CompanyName }}
+			{#each value.data as { id, attributes }}
 				<tr>
 					<th scope="row">
-						{CustomerId}
+						{id}
 					</th>
-					<td>{CompanyName}</td>
+					<td>{attributes.companyName}</td>
 					<td>
-						<a href="/customers/{CustomerId}"><Edit /></a>
+						<a href="/customers/{id}"><Edit /></a>
 					</td>
 				</tr>
 			{/each}

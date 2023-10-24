@@ -45,7 +45,7 @@ const baseCreate = async (url: string, body: string) => {
 }
 
 const baseUpdate = async (url: string, body: string) => {
-	return baseAction(url, 'PUT', body)
+	return baseAction(url, 'PATCH', body)
 }
 
 const baseRemove = async (url: string) => {
@@ -53,24 +53,23 @@ const baseRemove = async (url: string) => {
 }
 
 Base.fetchAll = async (table_name: string) => {
-	const url = `${base_url}/_table/${table_name}`
+	const url = `${base_url}/${table_name}`
 	return baseFetch(url)
 }
 
 Base.fetchDistinct = async (table_name: string, field_name: string) => {
-	const url = `${base_url}/_table/${table_name}?fields=${field_name}&group=${field_name}&filter=${field_name} is not null`
+	const url = `${base_url}/${table_name}?fields=${field_name}&group=${field_name}&filter=${field_name} is not null`
 	return baseFetch(url)
 }
 
 Base.fetchPaged = async (table_name: string, limit: number, offset: number) => {
-  let pageNumber = (offset / limit) + 1
-	// const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true`
-	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true&page[number]=${pageNumber}`
+  const pageNumber = (offset / limit) + 1
+	const url = `${base_url}/${table_name}?limit=${limit}&offset=${offset}&include_count=true&page[number]=${pageNumber}`
 	return baseFetch(url)
 }
 
 Base.fetchFiltered = async (table_name: string, filter: string) => {
-	const url = `${base_url}/_table/${table_name}?filter=${filter}`
+	const url = `${base_url}/${table_name}?filter=${filter}`
 	return baseFetch(url)
 }
 
@@ -80,27 +79,28 @@ Base.fetchFilteredPaged = async (
 	offset: number,
 	filter: string
 ) => {
-	const url = `${base_url}/_table/${table_name}?limit=${limit}&offset=${offset}&include_count=true&filter=${filter}`
+	const url = `${base_url}/${table_name}?limit=${limit}&offset=${offset}&include_count=true&filter=${filter}`
 	return baseFetch(url)
 }
 
 Base.fetchById = async (table_name: string, id: any) => {
-	const url = `${base_url}/_table/${table_name}/${id}`
+	const url = `${base_url}/${table_name}/${id}`
 	return baseFetch(url)
 }
 
 Base.create = async (table_name: string, body: string) => {
-	const url = `${base_url}/_table/${table_name}`
+	const url = `${base_url}/${table_name}`
 	return baseCreate(url, body)
 }
 
 Base.createByFields = async (table_name: string, fields: string, body: string) => {
-	const url = `${base_url}/_table/${table_name}?id_field=${fields}`
+	const url = `${base_url}/${table_name}?id_field=${fields}`
 	return baseCreate(url, body)
 }
 
 Base.updateById = async (table_name: string, id: number, body: string) => {
-	const url = `${base_url}/_table/${table_name}/${id}`
+	// const url = `${base_url}/${table_name}/${id}`
+	const url = `${base_url}/${table_name}`
 	return baseUpdate(url, body)
 }
 
@@ -112,17 +112,17 @@ Base.update = async (table_name: string, id: number, body: string) => {
 Base.updateByFields = async (table_name: string, fields: number, body: string) => {
 	// todo: refactor the hack below
 	body = body.replace(':true', ':1')
-	const url = `${base_url}/_table/${table_name}?id_field=${fields}`
+	const url = `${base_url}/${table_name}?id_field=${fields}`
 	return baseUpdate(url, body)
 }
 
 Base.remove = async (table_name: string, id: any) => {
-	const url = `${base_url}/_table/${table_name}/${id}`
+	const url = `${base_url}/${table_name}/${id}`
 	return baseRemove(url)
 }
 
 Base.removeByFilter = async (table_name: string, filter: string) => {
-	const url = `${base_url}/_table/${table_name}?filter=${filter}`
+	const url = `${base_url}/${table_name}?filter=${filter}`
 	return baseRemove(url)
 }
 export { Base }

@@ -8,7 +8,7 @@
 	export let data: PageData
 
 	$: promise = data
-	$: count = promise.meta.count
+	$: count = promise.meta.total
 
 	const next = async (args: any) => {
 		const offset = args.detail.offset
@@ -23,6 +23,7 @@
 </script>
 
 <h1>Employees</h1>
+
 <Pager limit={10} {count} on:next={next} />
 
 {#await promise}
@@ -37,14 +38,14 @@
 			</th>
 		</thead>
 		<tbody>
-			{#each value.resource as { EmployeeId, FirstName, LastName }}
+			{#each value.data as { id, attributes }}
 				<tr>
-					<td scope="row">
-						{EmployeeId}
-					</td>
-					<td>{FirstName} {LastName}</td>
+					<th scope="row">
+						{id}
+					</th>
+					<td>{attributes.firstName} {attributes.lastName}</td>
 					<td>
-						<a href="/employees/{EmployeeId}"><Edit /></a>
+						<a href="/employees/{id}"><Edit /></a>
 					</td>
 				</tr>
 			{/each}

@@ -65,10 +65,10 @@
 	<div class="filler" />
 	<fieldset>
 		<label for="CategoryId">Id</label>
-		<input id="CategoryId" name="CategoryId" value={data.CategoryId} readonly />
+		<input id="CategoryId" name="CategoryId" value={data.id} readonly />
 		<label for="CategoryName">Name</label>
-		<input id="CategoryName" name="CategoryName" value={data.CategoryName} />
+		<input id="CategoryName" name="CategoryName" value={data.categoryName} />
 		<label for="Description">Description</label>
-		<input id="Description" name="Description" value={data.Description} /><br />
+		<input id="Description" name="Description" value={data.description} /><br />
 	</fieldset>
 </form>

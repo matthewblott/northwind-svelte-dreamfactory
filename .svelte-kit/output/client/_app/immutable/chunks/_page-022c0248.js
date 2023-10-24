@@ -1,0 +1,1 @@
+import{T as t}from"./territory-06cbe7fc.js";import{e}from"./index-4d8f42c1.js";const a=async({params:r})=>{const o=await t.fetchById(r.id);if(o)return o;throw e(404,"Not found")},s=Object.freeze(Object.defineProperty({__proto__:null,load:a},Symbol.toStringTag,{value:"Module"}));export{s as _,a as l};
